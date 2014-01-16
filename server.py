@@ -32,9 +32,11 @@ class Cse491server(object):
             response_type = "HTTP/1.1"
             response_status = "200"
             response_status_text = "OK"
-            response_body = "<html><body><h1>Hello world!</h1></body></html>"
+            response_body = "<html><body><h1>Hello world!</h1>\
+                            </body></html>"
             
-            self.conn.send("%s %s %s" % response_type, response_status, response)
+            self.conn.send("%s %s %s" % response_type,
+                           response_status, response_body)
             self.conn.send("\n")
             self.conn.send(response_body)
 

@@ -47,7 +47,7 @@ class Cse491server(object):
 ##        self.conn.send('Thank you for connecting')
 ##        self.conn.send("good bye.")
         self.conn.close()
-        print "Disconnected from " + self.conn
+        print "Disconnected from " + self.client_host
 
         
 def main():

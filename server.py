@@ -2,8 +2,6 @@
 import random
 import socket
 import time
-import webob
-
 
 
 class Cse491server(object):
@@ -28,20 +26,17 @@ class Cse491server(object):
 
     #send response to client
     def send_responses(self):
-            cont_type = "Content-Type: text/html\n\n"
-            response_type = "HTTP/1.0 "
-            response_line = "200 OK\n"
-            
-            response_body = "<html><body><h1>Hello, world!</h1> \
-                            <p>This is koppmana's Web server!</p> \
-                            </body></html>"
-            
-            self.conn.send(response_type + response_line)
-            self.conn.send(cont_type)
-            #self.conn.send('\n')
-            
-            
-            self.conn.send(response_body)
+        cont_type = "Content-Type: text/html\n\n"
+        response_type = "HTTP/1.0 "
+        response_line = "200 OK\n"
+        
+        response_body = "<html><body><h1>Hello, world!</h1> \
+                        <p>This is koppmana's web server!</p> \
+                        </body></html>"
+        
+        self.conn.send(response_type + response_line)
+        self.conn.send(cont_type)
+        self.conn.send(response_body)
                 
     #close socket connection
     def close_conn(self):
@@ -52,8 +47,7 @@ class Cse491server(object):
 def main():
     server = Cse491server()
 
-    #print 'Entering infinite loop; hit CTRL-C to exit'
-    
+    print 'Entering infinite loop; hit CTRL-C to exit
     while True:
         server.wait_for_connect()
         

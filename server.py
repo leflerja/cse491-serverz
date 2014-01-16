@@ -13,7 +13,7 @@ class Cse491server(object):
         self.sock = socket.socket()         # Create a socket object
         self.host = socket.getfqdn() # Get local machine name
         self.port = random.randint(8000, 9999)
-        self.sock.bind((host, port))        # Bind to the port
+        self.sock.bind((self.host, self.port))        # Bind to the port
 
         print 'Starting server on', self.host, self.port
         print 'The Web server URL for this would be http://%s:%d/' % (self.host, self.port)

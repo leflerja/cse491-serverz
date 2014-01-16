@@ -55,10 +55,11 @@ def main():
     
     while True:
         server.wait_for_connect()
+        
     
     #server.send_responses()
         
-    server.close_conn()
+        server.close_conn()
     
 
 main()

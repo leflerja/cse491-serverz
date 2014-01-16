@@ -28,7 +28,7 @@ class Cse491server(object):
 
     #send response to client
     def send_responses(self):
-            cont_type = "Content-Type: text/html"
+            cont_type = 'Content-Type: text/html'
             response_type = "HTTP/1.0"
             response_line = "200 OK"
             

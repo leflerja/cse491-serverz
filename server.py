@@ -41,7 +41,7 @@ class Cse491server(object):
             self.conn.send('\n')
             self.conn.send(response_body)
 
-    def close_conn():
+    def close_conn(self):
         self.conn.send('Thank you for connecting')
         self.conn.send("good bye.")
         self.conn.close()

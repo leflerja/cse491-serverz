@@ -22,9 +22,9 @@ class Cse491server(object):
 
     def wait_for_connect(self):
         # Establish connection with client.    
-        self.conn, (client_host, client_port) = self.sock.accept()
+        self.conn, (self.client_host, self.client_port) = self.sock.accept()
         
-        print 'Got connection from', client_host, client_port
+        print 'Got connection from', self.client_host, self.client_port
 
     #send response to client
     def send_responses(self):
@@ -47,7 +47,7 @@ class Cse491server(object):
 ##        self.conn.send('Thank you for connecting')
 ##        self.conn.send("good bye.")
         self.conn.close()
-        print "Disconnected from " + self.conn[0]
+        print "Disconnected from " + self.conn
 
         
 def main():

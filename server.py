@@ -37,8 +37,8 @@ class Cse491server(object):
             
             self.conn.send("%s %s %s" % (response_type, \
                                          response_status, \
-                                         response_body))
-            self.conn.send("\n")
+                                         response_status_text))
+            self.conn.send('\n')
             self.conn.send(response_body)
 
     def close_conn():

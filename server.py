@@ -28,18 +28,19 @@ class Cse491server(object):
 
     #send response to client
     def send_responses(self):
-            cont_type = "Content-Type: text/html"
-            response_type = "HTTP/1.1"
-            response_status = "200"
-            response_status_text = "OK"
-            response_body = "<html><body><h1>Hello world!</h1>\
-                            </body></html>"
-            
-            self.conn.send("%s %s %s" % (response_type, \
-                                         response_status, \
-                                         response_status_text))
-            self.conn.send('\n')
-            self.conn.send(response_body)
+##            cont_type = "Content-Type: text/html"
+##            response_type = "HTTP/1.1"
+##            response_status = "200"
+##            response_status_text = "OK"
+##            response_body = "<html><body><h1>Hello world!</h1>\
+##                            </body></html>"
+##            
+##            self.conn.send("%s %s %s" % (response_type, \
+##                                         response_status, \
+##                                         response_status_text))
+##            self.conn.send('\n')
+##            self.conn.send(response_body)
+                
 
     def close_conn(self):
         self.conn.send('Thank you for connecting')
@@ -52,10 +53,12 @@ def main():
 
     #print 'Entering infinite loop; hit CTRL-C to exit'
     
-    while True:
-        server.wait_for_connect()
-        server.send_responses()
-        server.close_conn()
+##    while True:
+##        server.wait_for_connect()
+    
+    #server.send_responses()
+        
+    server.close_conn()
     
 
 main()

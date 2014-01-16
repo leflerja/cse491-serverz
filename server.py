@@ -32,14 +32,14 @@ class Cse491server(object):
             response_type = "HTTP/1.0"
             response_line = "200 OK"
             
-            response_body = "<html><body><h1>Hello, world!</h1>\
-                            <p>This is koppmana's Web server!</p>\
+            response_body = "<html><body><h1>Hello, world!</h1> \
+                            <p>This is koppmana's Web server!</p> \
                             </body></html>"
             
 ##            self.conn.send("%s %s %s" % (response_type, \
 ##                                         response_response_line))
-            self.conn.send(response_line)
-            self.conn.send('\n')
+##            self.conn.send(response_line)
+##            self.conn.send('\n')
             self.conn.send(response_body)
                 
 

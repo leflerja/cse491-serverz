@@ -28,7 +28,7 @@ class Cse491server(object):
 
     #send response to client
     def send_responses(self):
-            cont_type = 'Content-Type: text/html\r\n'
+            cont_type = "Content-Type: text/html\r\n"
             response_type = "HTTP/1.0 "
             response_line = "200 OK\r\n"
             
@@ -38,15 +38,10 @@ class Cse491server(object):
             
             self.conn.send(response_type + response_line)
             self.conn.send(cont_type)
-            self.conn.send('\n')
-            
-            
             self.conn.send(response_body)
                 
-
+    #close socket connection
     def close_conn(self):
-##        self.conn.send('Thank you for connecting')
-##        self.conn.send("good bye.")
         self.conn.close()
         print "Disconnected from " + self.client_host
 

@@ -22,7 +22,7 @@ class Cse491server(object):
 
     def wait_for_connect(self):
         # Establish connection with client.    
-        self.conn, (client_host, client_port) = sock.accept()
+        self.conn, (client_host, client_port) = self.sock.accept()
         
         print 'Got connection from', client_host, client_port
 
@@ -32,7 +32,7 @@ class Cse491server(object):
             response_type = "HTTP/1.1"
             response_status = "200"
             response_status_text = "OK"
-            self.response_body = "<html><body><h1>Hello world!</h1></body></html>"
+            response_body = "<html><body><h1>Hello world!</h1></body></html>"
             
             self.conn.send("%s %s %s" % response_type, response_status, response)
             self.conn.send("\n")
@@ -56,13 +56,5 @@ def main():
     
     server.close_conn()
     
-    
-def init_response():
-    res = webob.Response()
-    res.status_int = 200
-    res.headerlist = [('Content-Type', 'text/html')]
-    res.body = "<h1>Hello World!</h1>"
-
-    return res
 
 main()

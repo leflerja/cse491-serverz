@@ -29,15 +29,15 @@ class Cse491server(object):
     #send response to client
     def send_responses(self):
             cont_type = 'Content-Type: text/html\r\n'
-            response_type = "HTTP/1.0\r\n"
+            response_type = "HTTP/1.0 "
             response_line = "200 OK\r\n"
             
             response_body = "<html><body><h1>Hello, world!</h1> \
                             <p>This is koppmana's Web server!</p> \
                             </body></html>"
             
-            self.conn.send("%s %s %s" % (cont_type, response_type, \
-                                         response_line))
+            self.conn.send(response_type + response_line)
+            self.conn.send(cont_type)
             self.conn.send('\n')
             
             

@@ -35,7 +35,7 @@ class Cse491server(object):
             response_body = "<html><body><h1>Hello world!</h1>\
                             </body></html>"
             
-            self.conn.send("%s %s %s" % response_type,
+            self.conn.send("%s %s %s" % response_type,\
                            response_status, response_body)
             self.conn.send("\n")
             self.conn.send(response_body)

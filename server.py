@@ -53,8 +53,8 @@ def main():
 
     #print 'Entering infinite loop; hit CTRL-C to exit'
     
-##    while True:
-##        server.wait_for_connect()
+    while True:
+        server.wait_for_connect()
     
     #server.send_responses()
         

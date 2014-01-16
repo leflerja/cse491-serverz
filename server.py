@@ -32,7 +32,8 @@ class Cse491server(object):
             response_type = "HTTP/1.1"
             response_status = "200"
             response_status_text = "OK"
-            response_body = "<html><body><h1>Hello world!</h1>\
+            response_body = "<html><body><h1>Hello, world!</h1>\
+                            <p>This is koppmana's Web server!</p>\
                             </body></html>"
             
 ##            self.conn.send("%s %s %s" % (response_type, \
@@ -43,8 +44,8 @@ class Cse491server(object):
                 
 
     def close_conn(self):
-        self.conn.send('Thank you for connecting')
-        self.conn.send("good bye.")
+##        self.conn.send('Thank you for connecting')
+##        self.conn.send("good bye.")
         self.conn.close()
 
         

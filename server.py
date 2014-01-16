@@ -55,6 +55,7 @@ def main():
     while True:
         server.wait_for_connect()
         server.send_responses()
+        break
     
     server.close_conn()
     

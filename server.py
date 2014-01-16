@@ -36,10 +36,10 @@ class Cse491server(object):
                             <p>This is koppmana's Web server!</p>\
                             </body></html>"
             
-##            self.conn.send("%s %s %s" % (response_type, \
-##                                         response_status, \
-##                                         response_status_text))
-##            self.conn.send('\n')
+            self.conn.send("%s %s %s" % (response_type, \
+                                         response_status, \
+                                         response_status_text))
+            self.conn.send('\n')
             self.conn.send(response_body)
                 
 
@@ -47,6 +47,7 @@ class Cse491server(object):
 ##        self.conn.send('Thank you for connecting')
 ##        self.conn.send("good bye.")
         self.conn.close()
+        print "Disconnected from " + self.conn[0]
 
         
 def main():

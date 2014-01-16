@@ -2,6 +2,7 @@
 import random
 import socket
 import time
+import webob
 
 s = socket.socket()         # Create a socket object
 host = socket.getfqdn() # Get local machine name
@@ -17,6 +18,7 @@ print 'Entering infinite loop; hit CTRL-C to exit'
 while True:
     # Establish connection with client.    
     c, (client_host, client_port) = s.accept()
+    if 
     print 'Got connection from', client_host, client_port
     c.send('Thank you for connecting')
     c.send("good bye.")

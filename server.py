@@ -27,7 +27,7 @@ class Cse491server(object):
         print 'Got connection from', client_host, client_port
 
     #send response to client
-    #def send_responses(self):
+    def send_responses(self):
             cont_type = "Content-Type: text/html"
             response_type = "HTTP/1.1"
             response_status = "200"

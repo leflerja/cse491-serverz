@@ -18,7 +18,6 @@ print 'Entering infinite loop; hit CTRL-C to exit'
 while True:
     # Establish connection with client.    
     c, (client_host, client_port) = s.accept()
-    if 
     print 'Got connection from', client_host, client_port
     c.send('Thank you for connecting')
     c.send("good bye.")

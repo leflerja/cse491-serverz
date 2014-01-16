@@ -38,6 +38,9 @@ class Cse491server(object):
             
             self.conn.send(response_type + response_line)
             self.conn.send(cont_type)
+            self.conn.send('\n')
+            
+            
             self.conn.send(response_body)
                 
     #close socket connection

@@ -45,7 +45,7 @@ class Cse491server(object):
 
         
 def main():
-    server = Cse491sever()
+    server = Cse491server()
 
     server.wait_for_connect()
 

@@ -6,7 +6,7 @@ import time
 
 class Cse491server(object):
 
-    #initiliaze server then listen for client
+    # initiliaze server then listen for client
     def __init__(self):
         self.sock = socket.socket()         # Create a socket object
         self.host = socket.getfqdn() # Get local machine name
@@ -24,7 +24,7 @@ class Cse491server(object):
         
         print 'Got connection from', self.client_host, self.client_port
 
-    #send response to client
+    # send response to client
     def send_responses(self):
         cont_type = "Content-Type: text/html\n\n"
         response_type = "HTTP/1.0 "
@@ -38,7 +38,7 @@ class Cse491server(object):
         self.conn.send(cont_type)
         self.conn.send(response_body)
                 
-    #close socket connection
+    # close socket connection
     def close_conn(self):
         self.conn.close()
         print "Disconnected from " + self.client_host
@@ -47,7 +47,7 @@ class Cse491server(object):
 def main():
     server = Cse491server()
 
-    print 'Entering infinite loop; hit CTRL-C to exit
+    print 'Entering infinite loop; hit CTRL-C to exit'
     while True:
         server.wait_for_connect()
         

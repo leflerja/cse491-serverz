@@ -34,6 +34,19 @@ class FakeConnection(object):
     def close(self):
         self.is_closed = True
 
+# Test the 404 Error Page
+def test_error_page():
+    conn = FakeConnection("GET /error HTTP/1.0\r\n\r\n")
+    error_return = 'HTTP/1.0 404 Not Found\r\n' + \
+                   'Content-type: text/html\r\n\r\n' + \
+                   '<html><body>\r\n' + \
+                   '<h1>Error Page</h1>\r\n' + \
+                   'This page does not exist\r\n'
+    expected_return = error_return + footer
+
+    server.handle_connection(conn)
+    assert conn.sent == expected_return, 'Got: %s' % (repr(conn.sent),)
+
 # Test a GET call for the root
 def test_get_root():
     conn = FakeConnection("GET / HTTP/1.0\r\n\r\n")

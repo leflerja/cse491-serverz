@@ -5,12 +5,18 @@ from urlparse import urlparse, parse_qs
 import urllib
 
 # Global variables
-okay_header = 'HTTP/1.0 200 OK\r\n'
+app_content = 'Content-type: application/x-www-form-urlencoded\r\n\r\n' + \
+              '<html><body>\r\n'
+error_header = 'HTTP/1.0 404 Not Found\r\n'
+error_message = '<h1>Error Page</h1>\r\n' + \
+                'This page does not exist\r\n'
 footer = '</body></html>\r\n'
+multi_content = 'Content-type: multipart/form-data\r\n\r\n' + \
+                '<html><body>\r\n'
+okay_header = 'HTTP/1.0 200 OK\r\n'
 text_content = 'Content-type: text/html\r\n\r\n' + \
-             '<html><body>\r\n'
-post_content = 'Content-type: application/x-www-form-urlencoded\r\n\r\n' + \
                '<html><body>\r\n'
+
 
 def get_index(conn, params):
     return '<h1>Hello World!</h1>\r\n' + \
@@ -48,18 +54,21 @@ def handle_get(conn, path):
     params = parse_qs(urlparse(path)[4])
     page = urlparse(path)[2]
 
-    # Not sure why I keep getting /favicon.ico... I'll deal with it later
     get_pages = {'/'            : get_index,   \
-                 '/favicon.ico' : get_index,   \
                  '/content'     : get_content, \
                  '/files'       : get_files,   \
                  '/images'      : get_images,  \
                  '/form'        : get_form,    \
                  '/submit'      : get_submit   }
 
-    conn.send(okay_header)
-    conn.send(text_content)
-    conn.send(get_pages[page](conn, params))
+    if page in get_pages:
+        conn.send(okay_header)
+        conn.send(text_content)
+        conn.send(get_pages[page](conn, params))
+    else:
+        conn.send(error_header)
+        conn.send(text_content)
+        conn.send(error_message)
     conn.send(footer)
 
 def post_request(conn, request):
@@ -100,7 +109,7 @@ def handle_post(conn, request):
                   '/submit' : post_submit   }
 
     conn.send(okay_header)
-    conn.send(post_content)
+    conn.send(app_content)
     conn.send(post_pages[page](conn, params))
     conn.send(footer)
 

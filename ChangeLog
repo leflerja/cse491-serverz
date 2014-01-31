@@ -27,3 +27,9 @@
 2014-01-30  Matheus Araujo <araujoma@cse.msu.edu>
 
  * Really Good code, could improve with main() and get_submit() tests
+
+2014-01-31  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * server.py: Added the error page
+ * test_server.py: Added the test for the error page
+

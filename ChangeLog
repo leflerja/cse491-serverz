@@ -14,3 +14,16 @@
 
  * server.py: Added homework 2 code
  * test_server.py: Added tests for homework 2
+
+2014-01-26  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * server.py: Added homework 3 code
+ * test_server.py: Added tests for homework 3
+
+2014-01-30  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * test_server.py: Fixed name of one of the test methods
+
+2014-01-30  Matheus Araujo <araujoma@cse.msu.edu>
+
+ * Really Good code, could improve with main() and get_submit() tests

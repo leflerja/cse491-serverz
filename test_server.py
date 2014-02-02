@@ -1,3 +1,4 @@
+#! /usr/bin/env python
 import server
 
 # These are the global test variables

@@ -1,74 +1,47 @@
+#! /usr/bin/env python
+import jinja2
 import random
 import socket
 import time
-from urlparse import urlparse, parse_qs
 import urllib
+from urlparse import urlparse, parse_qs
 
 # Global variables
 app_content = 'Content-type: application/x-www-form-urlencoded\r\n\r\n' + \
               '<html><body>\r\n'
 error_header = 'HTTP/1.0 404 Not Found\r\n'
-error_message = '<h1>Error Page</h1>\r\n' + \
-                'This page does not exist\r\n'
 footer = '</body></html>\r\n'
 multi_content = 'Content-type: multipart/form-data\r\n\r\n' + \
                 '<html><body>\r\n'
 okay_header = 'HTTP/1.0 200 OK\r\n'
 text_content = 'Content-type: text/html\r\n\r\n' + \
                '<html><body>\r\n'
+loader = jinja2.FileSystemLoader('./templates')
+env = jinja2.Environment(loader=loader)
 
 
-def get_index(conn, params):
-    return '<h1>Hello World!</h1>\r\n' + \
-           "This is leflerja's Web server<br>\r\n" + \
-           "<a href='/content'>Content</a><br>\r\n" + \
-           "<a href='/files'>Files</a><br>\r\n" + \
-           "<a href='/images'>Images</a><br>\r\n" + \
-           "<a href='/form'>Form</a>\r\n"
-
-def get_content(conn, params):
-    return '<h1>Content Page</h1>\r\n' + \
-           'This is the content page\r\n'
-
-def get_files(conn, params):
-    return '<h1>Files Page</h1>\r\n' + \
-           'This is the files page\r\n'
-
-def get_images(conn, params):
-    return '<h1>Images Page</h1>\r\n' + \
-           'This is the images page\r\n'
-
-def get_form(conn, params):
-    return '<h1>Form Page</h1>\r\n' + \
-           '<form action=\'/submit\' method=\'GET\'>\r\n' + \
-           'First Name: <input type=\'text\' name=\'firstname\'><br>\r\n' + \
-           'Last Name: <input type=\'text\' name=\'lastname\'><br>\r\n' + \
-           '<input type=\'submit\' name=\'submit\'>\r\n' + \
-           '</form>\r\n'
-
-def get_submit(conn, params):
-    return '<h1>Submit Page</h1>\r\n' + \
-           'Hello {0} {1}'.format(params['firstname'][0], params['lastname'][0])
-
+# Methods
 def handle_get(conn, path):
     params = parse_qs(urlparse(path)[4])
     page = urlparse(path)[2]
 
-    get_pages = {'/'            : get_index,   \
-                 '/content'     : get_content, \
-                 '/files'       : get_files,   \
-                 '/images'      : get_images,  \
-                 '/form'        : get_form,    \
-                 '/submit'      : get_submit   }
+    get_pages = {'/'            : 'index.html',    \
+                 '/content'     : 'content.html',  \
+                 '/files'       : 'files.html',    \
+                 '/images'      : 'images.html',   \
+                 '/form'        : 'form_get.html', \
+                 '/submit'      : 'submit.html'    }
 
     if page in get_pages:
+        template = env.get_template(get_pages[page])
         conn.send(okay_header)
         conn.send(text_content)
-        conn.send(get_pages[page](conn, params))
+        conn.send(template.render(params))
     else:
+        template = env.get_template('error.html')
         conn.send(error_header)
         conn.send(text_content)
-        conn.send(error_message)
+        conn.send(template.render())
     conn.send(footer)
 
 def post_request(conn, request):
@@ -120,7 +93,7 @@ def handle_connection(conn):
         path = request.split()[1]
         handle_get(conn, path)
     elif request_type == 'POST':
-         handle_post(conn, request)
+        handle_post(conn, request)
     conn.close()
 
 def main():

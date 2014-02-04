@@ -36,3 +36,4 @@
 2014-02-04  Jason Lefler <leflerja@arctic.cse.msu.edu>
 
  * server.py: Added the recv() functionality
+ * test_server.py: Altered the tests to work with the templates

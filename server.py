@@ -86,8 +86,21 @@ def handle_post(conn, request):
     conn.send(post_pages[page](conn, params))
     conn.send(footer)
 
+def get_data (conn):
+    request = ''
+    conn.settimeout(.1)
+
+    try:
+        while True:
+            data = conn.recv(1000)
+            if not data:
+                return request
+            request += data
+    except socket.timeout:
+        return request
+
 def handle_connection(conn):
-    request = conn.recv(1000)
+    request = get_data(conn)
     request_type = request.split()[0]
     if request_type == 'GET':
         path = request.split()[1]

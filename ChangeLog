@@ -33,3 +33,6 @@
  * server.py: Added the error page
  * test_server.py: Added the test for the error page
 
+2014-02-04  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * server.py: Added the recv() functionality

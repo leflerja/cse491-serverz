@@ -37,3 +37,8 @@
 
  * server.py: Added the recv() functionality
  * test_server.py: Altered the tests to work with the templates
+
+2014-02-06  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * server.py: Added the multipart post stuff
+ * test_server.py: Altered the tests to work with the new stuff

@@ -27,3 +27,18 @@
 2014-01-30  Matheus Araujo <araujoma@cse.msu.edu>
 
  * Really Good code, could improve with main() and get_submit() tests
+
+2014-01-31  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * server.py: Added the error page
+ * test_server.py: Added the test for the error page
+
+2014-02-04  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * server.py: Added the recv() functionality
+ * test_server.py: Altered the tests to work with the templates
+
+2014-02-06  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * server.py: Added the multipart post stuff
+ * test_server.py: Altered the tests to work with the new stuff

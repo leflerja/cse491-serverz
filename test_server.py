@@ -100,29 +100,29 @@ def test_post_app():
         pass
 
 # This doesn't work
-#def test_post_multi():
-#    conn = FakeConnection("POST /submit HTTP/1.0\r\n" + \
-#                          "Content-Length: 187\r\n" + \
-#                          "Content-Type: multipart/form-data; boundary=b3f2eea10bf64ea89786c327b60a022a\r\n" + \
-#                          "Accept-Encoding: gzip, deflate, compress\r\n" + \
-#                          "Accept: */*\r\n" + \
-#                          "User-Agent: python-requests/0.14.2 CPython/2.7.3 Darwin/12.5.0\r\n\r\n" + \
-#                          "--b3f2eea10bf64ea89786c327b60a022a\r\n" + \
-#                          "Content-Disposition: form-data; name='firstname'\r\n" + \
-#                          "Content-Type: application/octet-stream\r\n\r\n" + \
-#                          "Jason\r\n" + \
-#                          "--b3f2eea10bf64ea89786c327b60a022a\r\n" + \
-#                          "Content-Disposition: form-data; name='lastname'\r\n" + \
-#                          "Content-Type: application/octet-stream\r\n\r\n" + \
-#                          "Lefler\r\n" + \
-#                          "--b3f2eea10bf64ea89786c327b60a022a--\r\n")
-#    server.handle_connection(conn)
-#    result = conn.sent
-#
-#    if 'HTTP/1.0 200 OK' not in result:
-#        assert False
-#    else:
-#        pass
+def test_post_multi():
+    conn = FakeConnection("POST /submit HTTP/1.0\r\n" + \
+                          "Content-Length: 187\r\n" + \
+                          "Content-Type: multipart/form-data; boundary=b3f2eea10bf64ea89786c327b60a022a\r\n" + \
+                          "Accept-Encoding: gzip, deflate, compress\r\n" + \
+                          "Accept: */*\r\n" + \
+                          "User-Agent: python-requests/0.14.2 CPython/2.7.3 Darwin/12.5.0\r\n\r\n" + \
+                          "--b3f2eea10bf64ea89786c327b60a022a\r\n" + \
+                          "Content-Disposition: form-data; name='firstname'\r\n" + \
+                          "Content-Type: application/octet-stream\r\n\r\n" + \
+                          "Jason\r\n" + \
+                          "--b3f2eea10bf64ea89786c327b60a022a\r\n" + \
+                          "Content-Disposition: form-data; name='lastname'\r\n" + \
+                          "Content-Type: application/octet-stream\r\n\r\n" + \
+                          "Lefler\r\n" + \
+                          "--b3f2eea10bf64ea89786c327b60a022a--\r\n")
+    server.handle_connection(conn)
+    result = conn.sent
+
+    if 'HTTP/1.0 200 OK' not in result:
+        assert False
+    else:
+        pass
 
 class FakeConnection(object):
     """

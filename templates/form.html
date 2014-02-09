@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %} Web Server - Form Page - GET {% endblock title %}
+
+{% block body %}
+
+<h1>Form Page</h1>
+<form action='submit' method='GET'>
+First Name: <input type='text' name='firstname'><br>
+Last Name: <input type='text' name='lastname'><br>
+<input type='submit' name='submit'>
+</form>
+
+{% endblock body %}

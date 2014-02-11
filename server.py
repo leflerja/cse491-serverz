@@ -28,11 +28,13 @@ def form(conn):
     conn.send('</form>')
 
 def submit(conn, firstname, lastname):
+    # What if a female uses it? It shouldn't be Mr.
     conn.send('<h1>Hello Mr. {firstname} '
               '{lastname}.</h1>'.format(firstname = firstname,
                                         lastname = lastname))
 
 def handle_connection(conn):
+    # Recieve is misspelled, it should be receive
     recieve = conn.recv(1000)
     recieve = recieve.split('\n')
     con = recieve[-1]

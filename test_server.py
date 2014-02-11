@@ -1,5 +1,7 @@
 import server
 
+# Need to add a test for main()
+
 class FakeConnection(object):
     """
     A fake connection class that mimics a real TCP socket for the purpose

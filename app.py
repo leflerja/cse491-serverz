@@ -13,7 +13,8 @@ def render_page(page, params):
     loader = jinja2.FileSystemLoader('./templates')
     env = jinja2.Environment(loader=loader)
     template = env.get_template(page)
-    x = template.render(params)
+#    x = template.render(params)
+    x = template.render(params).encode('latin-1', 'replace')
     return str(x)
 
 

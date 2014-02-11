@@ -51,3 +51,8 @@
  * app.py: Started on for hw5
  * test_app.py: Started on for hw5
 
+2014-02-11  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * app.py: Added the encoding line for template rendering
+ * added the s2.html template for posts
+

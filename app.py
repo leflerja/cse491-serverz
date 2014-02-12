@@ -13,7 +13,6 @@ def render_page(page, params):
     loader = jinja2.FileSystemLoader('./templates')
     env = jinja2.Environment(loader=loader)
     template = env.get_template(page)
-#    x = template.render(params)
     x = template.render(params).encode('latin-1', 'replace')
     return str(x)
 
@@ -73,33 +72,16 @@ class MyApp(object):
 
     def handle_post(self, environ, start_response):
         con_type = environ['CONTENT_TYPE']
-        body = ''
-        con_length = int(environ.get('CONTENT_LENGTH', 0))
-
-        if con_type == 'application/x-www-form-urlencoded':
-            body = parse_qs(environ['wsgi.input'].read(con_length))
-            start_response('200 OK', con_type)
-            return render_page('submit.html', body)
-
-        else:
-#            body = environ['wsgi.input']
-            body = parse_qs(environ['wsgi.input'].read(con_length))
-            headers = {}
-            for k, v in body.iteritems():
-#            for line in body:
-#                k, v = line.split(':', 1)
-                headers[k.lower()] = v
-            fs = cgi.FieldStorage(fp=StringIO(body), headers=headers, environ=environ)
-            params ={} 
-            for key in fs.keys():
-                params[key] = fs[key].value
-            start_response('200 OK', con_type)
-            return render_page('s2.html', params)
-#            return render_page('submit.html', params)
-#            temp = {}
-#            temp['firstname'] = "Jason"
-#            temp['lastname'] = "Lefler"
-#            return render_page('s2.html', temp)
+        headers = {}
+        params ={} 
+        for k, v in environ.iteritems():
+            headers['content-type'] = environ['CONTENT_TYPE']
+            headers['content-length'] = environ['CONTENT_LENGTH']
+            fs = cgi.FieldStorage(fp=environ['wsgi.input'], \
+                                  headers=headers, environ=environ)
+            params.update({x: [fs[x].value] for x in fs.keys()}) 
+        start_response('200 OK', con_type)
+        return render_page('submit.html', params)
 
 def make_app():
     return MyApp()

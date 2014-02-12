@@ -56,3 +56,6 @@
  * app.py: Added the encoding line for template rendering
  * added the s2.html template for posts
 
+2014-02-12  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * app.py: Fixed the post part

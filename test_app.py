@@ -206,7 +206,6 @@ def test_post_multi():
     environ['QUERY_STRING'] = ''
     environ['CONTENT_LENGTH'] = '31'
     environ['CONTENT_TYPE'] = 'multipart/form-data; boundary=AaB03x'
-#    environ['wsgi.input'] = content
     environ['wsgi.input'] = StringIO(content)
 
     d = {}

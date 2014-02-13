@@ -80,7 +80,8 @@ class MyApp(object):
             fs = cgi.FieldStorage(fp=environ['wsgi.input'], \
                                   headers=headers, environ=environ)
             params.update({x: [fs[x].value] for x in fs.keys()}) 
-        start_response('200 OK', con_type)
+#        start_response('200 OK', con_type)
+        start_response('200 OK', [('Content-type', con_type)])
         return render_page('submit.html', params)
 
 def make_app():

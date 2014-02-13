@@ -59,3 +59,9 @@
 2014-02-12  Jason Lefler <leflerja@arctic.cse.msu.edu>
 
  * app.py: Fixed the post part
+
+2014-02-12  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * server.py: Added it back with hw5 changes and socketmodule
+ * test_server.py: Added it back with main() test
+

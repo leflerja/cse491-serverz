@@ -99,40 +99,75 @@ def test_post_app():
     else:
         pass
 
-# This doesn't work
-#def test_post_multi():
-#    conn = FakeConnection("POST /submit HTTP/1.0\r\n" + \
-#                          "Content-Length: 187\r\n" + \
-#                          "Content-Type: multipart/form-data; boundary=b3f2eea10bf64ea89786c327b60a022a\r\n" + \
-#                          "Accept-Encoding: gzip, deflate, compress\r\n" + \
-#                          "Accept: */*\r\n" + \
-#                          "User-Agent: python-requests/0.14.2 CPython/2.7.3 Darwin/12.5.0\r\n\r\n" + \
-#                          "--b3f2eea10bf64ea89786c327b60a022a\r\n" + \
-#                          "Content-Disposition: form-data; name='firstname'\r\n" + \
-#                          "Content-Type: application/octet-stream\r\n\r\n" + \
-#                          "Jason\r\n" + \
-#                          "--b3f2eea10bf64ea89786c327b60a022a\r\n" + \
-#                          "Content-Disposition: form-data; name='lastname'\r\n" + \
-#                          "Content-Type: application/octet-stream\r\n\r\n" + \
-#                          "Lefler\r\n" + \
-#                          "--b3f2eea10bf64ea89786c327b60a022a--\r\n")
-#    server.handle_connection(conn)
-#    result = conn.sent
-#
-#    if 'HTTP/1.0 200 OK' not in result:
-#        assert False
-#    else:
-#        pass
+def test_post_multi():
+    conn = FakeConnection("POST /submit HTTP/1.0\r\n" + \
+                          "Content-Length: 187\r\n" + \
+                          "Content-Type: multipart/form-data; boundary=AaB03x\r\n\r\n" + \
+                          "--AaB03x\r\n" + \
+                          "Content-Disposition: form-data; name=\"firstname\";" + \
+                          " filename=\"firstname\"\r\n\r\n" + \
+                          "Jason\r\n" + \
+                          "--AaB03x\r\n" + \
+                          "Content-Disposition: form-data; name=\"lastname\";" + \
+                          " filename=\"lastname\"\r\n\r\n" + \
+                          "Lefler\r\n" + \
+                          "--AaB03x\r\n" + \
+                          "Content-Disposition: form-data; name=\"key\";" + \
+                          " filename=\"key\"\r\n\r\n" + \
+                          "value\r\n" + \
+                          "--AaB03x--\r\n")
+    server.handle_connection(conn)
+    result = conn.sent
+
+    if 'HTTP/1.0 200 OK' not in result:
+        assert False
+    else:
+        pass
+
+def test_main():
+    fakemodule = FakeSocketModule()
+
+    success = False
+    try:
+        server.main(fakemodule)
+    except AcceptCalledMultipleTimes:
+        success = True
+        pass
+
+    assert success, "Something went wrong"
+
+class AcceptCalledMultipleTimes(Exception):
+    pass
+
+class FakeSocketModule(object):
+    def getfqdn(self):
+        return "fakehost"
+
+    def socket(self):
+        return FakeConnection("")
 
 class FakeConnection(object):
-    """
-    A fake connection class that mimics a real TCP socket for the purpose
-    of testing socket I/O.
-    """
     def __init__(self, to_recv):
         self.to_recv = to_recv
         self.sent = ""
         self.is_closed = False
+        self.n_times_accept_called = 0
+
+    def bind(self, param):
+        (host, port) = param
+
+    def listen(self, n):
+        assert n == 5
+        if n != 5:
+            raise Exception("n should be five you dumby")
+
+    def accept(self):
+        if self.n_times_accept_called > 1:
+            raise AcceptCalledMultipleTimes("stop calling accept, please")
+        self.n_times_accept_called += 1
+        
+        c = FakeConnection("")
+        return c, ("noclient", 32351)
 
     def recv(self, n):
         if n > len(self.to_recv):
@@ -145,9 +180,6 @@ class FakeConnection(object):
 
     def send(self, s):
         self.sent += s
-
-    def settimeout(self, n):
-        self.timeout = n
 
     def close(self):
         self.is_closed = True

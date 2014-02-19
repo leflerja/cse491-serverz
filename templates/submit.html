@@ -1,5 +1,10 @@
 {% extends "base.html" %}
+
+{% block title %} Web Server - Submit Page {% endblock title %}
+
 {% block body %}
+
 <h1>Submit Page</h1>
-Hello {{ firstname.0 }} {{ lastname.0 }}
+Hello {{ firstname[0] }} {{ lastname[0] }}
+
 {% endblock body %}

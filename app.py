@@ -2,6 +2,7 @@
 
 import cgi
 import jinja2
+import os
 import traceback
 import urllib
 from StringIO import StringIO
@@ -16,6 +17,18 @@ def render_page(page, params):
     x = template.render(params).encode('latin-1', 'replace')
     return str(x)
 
+# Get a list of all files in a directory
+def get_contents(dir):
+    list = []
+    for file in os.listdir(dir):
+        list.append(file)
+    return list
+
+def get_file(file_in):
+    fp = open(file_in, 'rb')
+    data = [fp.read()]
+    fp.close
+    return data
 
 class MyApp(object):
     def __call__(self, environ, start_response):
@@ -24,9 +37,13 @@ class MyApp(object):
                    '/files'       : self.files,
                    '/images'      : self.images,
                    '/form'        : self.form,
-                   '/submit'      : self.submit   }
+                   '/submit'      : self.submit  }
 
         path = environ['PATH_INFO']
+        if path[:5] == '/text':
+            return self.text(environ, start_response) 
+        elif path[:5] == '/pics':
+            return self.pics(environ, start_response) 
         page = options.get(path)
 
         if page is None:
@@ -48,11 +65,13 @@ class MyApp(object):
 
     def files(self, environ, start_response):
         start_response('200 OK', [('Content-type', 'text/html')])
-        return render_page('files.html','')
+        params = dict(names=get_contents('files'))
+        return render_page('files.html', params)
 
     def images(self, environ, start_response):
         start_response('200 OK', [('Content-type', 'text/html')])
-        return render_page('images.html','')
+        params = dict(names=get_contents('images'))
+        return render_page('images.html', params)
 
     def form(self, environ, start_response):
         start_response('200 OK', [('Content-type', 'text/html')])
@@ -80,9 +99,18 @@ class MyApp(object):
             fs = cgi.FieldStorage(fp=environ['wsgi.input'], \
                                   headers=headers, environ=environ)
             params.update({x: [fs[x].value] for x in fs.keys()}) 
-#        start_response('200 OK', con_type)
         start_response('200 OK', [('Content-type', con_type)])
         return render_page('submit.html', params)
+
+    def text(self, environ, start_response):
+        start_response('200 OK', [('Content-type', 'text/plain')])
+        text_file = './files' + environ['PATH_INFO'][5:]
+        return get_file(text_file)
+
+    def pics(self, environ, start_response):
+        start_response('200 OK', [('Content-type', 'image/png')])
+        pic_file = './images' + environ['PATH_INFO'][5:]
+        return get_file(pic_file)
 
 def make_app():
     return MyApp()

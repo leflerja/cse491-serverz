@@ -5,6 +5,11 @@
 {% block body %}
 
 <h1>Files Page</h1>
-This is the files page
+
+<ul>
+{% for name in names  %}
+  <a href='/text/{{ name  }}'>{{ name }}<br>
+{% endfor %}
+</ul>
 
 {% endblock body %}

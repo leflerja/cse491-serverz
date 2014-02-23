@@ -3,7 +3,7 @@ import server
 
 def test_error():
     conn = FakeConnection("GET /error HTTP/1.0\r\n\r\n")
-    server.handle_connection(conn)
+    server.handle_connection(conn, 80)
     result = conn.sent
 
     if 'HTTP/1.0 404 Not Found' not in result:
@@ -13,7 +13,7 @@ def test_error():
 
 def test_index():
     conn = FakeConnection("GET / HTTP/1.0\r\n\r\n")
-    server.handle_connection(conn)
+    server.handle_connection(conn, 80)
     result = conn.sent
 
     if ('HTTP/1.0 200 OK' and \
@@ -25,7 +25,7 @@ def test_index():
 
 def test_content():
     conn = FakeConnection("GET /content HTTP/1.0\r\n\r\n")
-    server.handle_connection(conn)
+    server.handle_connection(conn, 80)
     result = conn.sent
 
     if ('HTTP/1.0 200 OK' and \
@@ -37,7 +37,7 @@ def test_content():
 
 def test_files():
     conn = FakeConnection("GET /files HTTP/1.0\r\n\r\n")
-    server.handle_connection(conn)
+    server.handle_connection(conn, 80)
     result = conn.sent
 
     if ('HTTP/1.0 200 OK' and \
@@ -49,7 +49,7 @@ def test_files():
 
 def test_images():
     conn = FakeConnection("GET /images HTTP/1.0\r\n\r\n")
-    server.handle_connection(conn)
+    server.handle_connection(conn, 80)
     result = conn.sent
 
     if ('HTTP/1.0 200 OK' and \
@@ -61,7 +61,7 @@ def test_images():
 
 def test_form():
     conn = FakeConnection("GET /form HTTP/1.0\r\n\r\n")
-    server.handle_connection(conn)
+    server.handle_connection(conn, 80)
     result = conn.sent
 
     if ('HTTP/1.0 200 OK' and \
@@ -77,7 +77,7 @@ def test_form():
 
 def test_submit():
     conn = FakeConnection("GET /submit?firstname=Jason&lastname=Lefler&submit=Submit HTTP/1.0\r\n\r\n")
-    server.handle_connection(conn)
+    server.handle_connection(conn, 80)
     result = conn.sent
 
     if ('HTTP/1.0 200 OK' and \
@@ -91,7 +91,7 @@ def test_post_app():
                           "Content-Length: 31\r\n" + \
                           "Content-Type: application/x-www-form-urlencoded\r\n\r\n" + \
                           "firstname=Jason&lastname=Lefler\r\n")
-    server.handle_connection(conn)
+    server.handle_connection(conn, 80)
     result = conn.sent
 
     if 'HTTP/1.0 200 OK' not in result:
@@ -116,7 +116,7 @@ def test_post_multi():
                           " filename=\"key\"\r\n\r\n" + \
                           "value\r\n" + \
                           "--AaB03x--\r\n")
-    server.handle_connection(conn)
+    server.handle_connection(conn, 80)
     result = conn.sent
 
     if 'HTTP/1.0 200 OK' not in result:

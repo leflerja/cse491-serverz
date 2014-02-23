@@ -3,10 +3,12 @@ from app import make_app
 import random
 import socket
 from StringIO import StringIO
+from sys import stderr
 import time
 from urlparse import urlparse
+from wsgiref.validate import validator
 
-def handle_connection(conn):
+def handle_connection(conn, port):
     request = conn.recv(1)
     
     if not request:
@@ -29,7 +31,16 @@ def handle_connection(conn):
     env['PATH_INFO'] = path[2]
     env['QUERY_STRING'] = path[4]
     env['CONTENT_TYPE'] = 'text/html'
-    env['CONTENT_LENGTH'] = 0
+    env['CONTENT_LENGTH'] = str(0)
+    env['SCRIPT_NAME'] = ''
+    env['SERVER_NAME'] = socket.getfqdn()
+    env['SERVER_PORT'] = str(port)
+    env['wsgi.version'] = (1, 0)
+    env['wsgi.errors'] = stderr
+    env['wsgi.multithread']  = False
+    env['wsgi.multiprocess'] = False
+    env['wsgi.run_once']     = False
+    env['wsgi.url_scheme'] = 'http'
 
     body = ''
     if request.startswith('POST '):
@@ -49,8 +60,9 @@ def handle_connection(conn):
         conn.send('\r\n')
 
     env['wsgi.input'] = StringIO(body)
-    new_app = make_app()
-    result = new_app(env, start_response)
+    my_app = make_app()
+    validator_app = validator(my_app)
+    result = my_app(env, start_response)
     for data in result:
         conn.send(data)
     conn.close()
@@ -74,7 +86,7 @@ def main(socketmodule=None):
         # Establish connection with client
         c, (client_host, client_port) = s.accept()
         print 'Got connection from', client_host, client_port
-        handle_connection(c)
+        handle_connection(c, client_port)
 
 if __name__ == '__main__':
     main()

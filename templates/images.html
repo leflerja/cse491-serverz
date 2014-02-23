@@ -5,6 +5,11 @@
 {% block body %}
 
 <h1>Images Page</h1>
-This is the images page
+
+<ul>
+{% for name in names  %}
+  <a href='/pics/{{ name  }}'>{{ name }}<br>
+{% endfor %}
+</ul>
 
 {% endblock body %}

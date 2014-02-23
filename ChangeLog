@@ -65,3 +65,14 @@
  * server.py: Added it back with hw5 changes and socketmodule
  * test_server.py: Added it back with main() test
 
+2014-02-20  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * app.py: Added the text file and image functionality
+ * file: Added the file folder with some test files
+ * images: Added the images folder with some test files
+
+2014-02-21  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * server.py: Added the WSGI validation
+ * test_app.py: Added tests for the new text file and image stuff
+

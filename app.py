@@ -17,10 +17,10 @@ def render_page(page, params):
     x = template.render(params).encode('latin-1', 'replace')
     return str(x)
 
-# Get a list of all files in a directory
+# Get a sorted list of all files in a directory
 def get_contents(dir):
     list = []
-    for file in os.listdir(dir):
+    for file in sorted(os.listdir(dir)):
         list.append(file)
     return list
 

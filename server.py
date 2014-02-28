@@ -41,6 +41,7 @@ def handle_connection(conn, port):
     env['wsgi.multiprocess'] = False
     env['wsgi.run_once']     = False
     env['wsgi.url_scheme'] = 'http'
+    env['HTTP_COOKIE'] = headers['cookie'] if 'cookie' in headers.keys() else ''
 
     body = ''
     if request.startswith('POST '):

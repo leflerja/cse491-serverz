@@ -76,3 +76,9 @@
  * server.py: Added the WSGI validation
  * test_app.py: Added tests for the new text file and image stuff
 
+2014-02-28  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * imageapp: Added the imageapp directory
+ * app.py: Made the files list sorted
+ * un-qx-server.py: Fixed it to test cookies
+

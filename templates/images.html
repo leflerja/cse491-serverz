@@ -6,10 +6,19 @@
 
 <h1>Images Page</h1>
 
-<ul>
-{% for name in names  %}
-  <a href='/pics/{{ name  }}'>{{ name }}<br>
-{% endfor %}
-</ul>
+<table width=500>
+  {% for name in names %}
+    {% if loop.index is divisibleby 5 or loop.first %}
+    <tr>
+    {% endif %}
+      <td width=60 height=60 border=1 align="center">
+        <img src= '/pics/{{ name  }}' width=50 height=50><br>
+        <a href='/pics/{{ name  }}'>{{ name }}
+      </td>
+    {% if (loop.index + 1) is divisibleby 5 or loop.last %}
+    </tr>
+    {% endif %}
+  {% endfor %}
+</table>
 
 {% endblock body %}

@@ -82,3 +82,7 @@
  * app.py: Made the files list sorted
  * un-qx-server.py: Fixed it to test cookies
 
+2014-03-15  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * ref-server.py: Removed
+

@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-import argparse
 from app import make_app
 import random
 import socket
@@ -69,38 +68,13 @@ def handle_connection(conn, port):
         conn.send(data)
     conn.close()
 
-def get_args():
-    apps = {'altdemo' : one,
-            'image'   : two,
-            'myapp'   : three}
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-A', action="store",
-                              dest="arg_app",
-                              help="The application to run")
-    parser.add_argument('-p', action="store",
-                              default=0,
-                              dest="arg_port",
-                              help="The port to use (optional)",
-                              required=False,
-                              type=int)
-
-    results = parser.parse_args()
-    in_app = apps.get(arg_app)
-    if in_app is None:
-       print '\nError, that application does not exist\n'
-       exit()
-    return results.arg_app, results.arg_port
-
 def main(socketmodule=None):
     if socketmodule is None:
         socketmodule = socket
 
-    app, port = get_args()            # Parse the arguments
-
     s = socketmodule.socket()         # Create a socket object
     host = socketmodule.getfqdn()     # Get local machine name
-    if port == 0:
-        port = random.randint(8000, 9999)
+    port = random.randint(8000, 9999)
     s.bind((host, port))              # Bind to the port
 
     print 'Starting server on', host, port

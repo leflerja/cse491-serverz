@@ -1,5 +1,6 @@
 #! /usr/bin/env python
 import server
+import sys
 
 def test_error():
     conn = FakeConnection("GET /error HTTP/1.0\r\n\r\n")
@@ -66,7 +67,7 @@ def test_images_thumb():
 
     if ('HTTP/1.0 200 OK' and \
         'Content-type: text/html' and \
-        'Images Page') not in result:
+        'Thumbnail Images Page') not in result:
         assert False
     else:
         pass
@@ -138,6 +139,8 @@ def test_post_multi():
 
 def test_main():
     fakemodule = FakeSocketModule()
+    sys.argv[1] = '-A'
+    sys.argv.append('myapp')
 
     success = False
     try:
@@ -165,14 +168,6 @@ class FakeConnection(object):
         self.is_closed = False
         self.n_times_accept_called = 0
 
-    def bind(self, param):
-        (host, port) = param
-
-    def listen(self, n):
-        assert n == 5
-        if n != 5:
-            raise Exception("n should be five you dumby")
-
     def accept(self):
         if self.n_times_accept_called > 1:
             raise AcceptCalledMultipleTimes("stop calling accept, please")
@@ -180,6 +175,17 @@ class FakeConnection(object):
         
         c = FakeConnection("")
         return c, ("noclient", 32351)
+
+    def bind(self, param):
+        (host, port) = param
+
+    def close(self):
+        self.is_closed = True
+
+    def listen(self, n):
+        assert n == 5
+        if n != 5:
+            raise Exception("n should be five you dumby")
 
     def recv(self, n):
         if n > len(self.to_recv):
@@ -192,6 +198,3 @@ class FakeConnection(object):
 
     def send(self, s):
         self.sent += s
-
-    def close(self):
-        self.is_closed = True

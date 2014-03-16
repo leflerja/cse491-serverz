@@ -16,6 +16,11 @@ code 200
 follow chrome.png
 code 200
 
+go /images_thumb
+code 200
+follow ubuntu.png
+code 200
+
 go /form
 code 200
 formvalue 1 firstname Jason

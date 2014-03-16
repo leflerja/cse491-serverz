@@ -87,5 +87,11 @@
  * ref-server.py: Removed
  * twill-tests: Added all twill tests
  * images: Added 2 more images to test the project
- * Project: I did project 5 and made the /images page thumbnails
+ * Project: I did project 5 and made the /images_thumb page out thumbnails of
+            the images. It is listed in the index.html page and is tested like
+            all the other pages.
+
+2014-03-15  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * render.py: Removed
 

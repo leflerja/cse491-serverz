@@ -59,6 +59,18 @@ def test_images():
     else:
         pass
 
+def test_images_thumb():
+    conn = FakeConnection("GET /images_thumb HTTP/1.0\r\n\r\n")
+    server.handle_connection(conn, 80)
+    result = conn.sent
+
+    if ('HTTP/1.0 200 OK' and \
+        'Content-type: text/html' and \
+        'Images Page') not in result:
+        assert False
+    else:
+        pass
+
 def test_form():
     conn = FakeConnection("GET /form HTTP/1.0\r\n\r\n")
     server.handle_connection(conn, 80)

@@ -137,6 +137,28 @@ def test_images():
     assert status == '200 OK'
     assert ('Content-type', 'text/html') in headers
 
+def test_images_thumb():
+    environ = {}
+    environ['PATH_INFO'] = '/images_thumb'
+    environ['REQUEST_METHOD'] = 'GET'
+    environ['QUERY_STRING'] = ''
+    environ['CONTENT_TYPE'] = 'text/html'
+
+    d = {}
+    def test_start_response(s, h, return_in=d):
+        d['status'] = s
+        d['headers'] = h
+
+    test_app = app.MyApp()
+    results = test_app(environ, test_start_response)
+
+    text = "".join(results)
+    status, headers = d['status'], d['headers']
+    
+    assert text.find('Images') != -1, text
+    assert status == '200 OK'
+    assert ('Content-type', 'text/html') in headers
+
 def test_pics():
     environ = {}
     environ['PATH_INFO'] = '/pics/chrome.png'

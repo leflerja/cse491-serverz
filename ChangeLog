@@ -91,7 +91,7 @@
             the images. It is listed in the index.html page and is tested like
             all the other pages.
 
-2014-03-15  Jason Lefler <leflerja@arctic.cse.msu.edu>
+2014-03-16  Jason Lefler <leflerja@arctic.cse.msu.edu>
 
  * render.py: Removed
 

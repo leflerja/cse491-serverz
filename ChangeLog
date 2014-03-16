@@ -86,3 +86,7 @@
 
  * ref-server.py: Removed
 
+2014-03-16  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * render.py: Removed
+

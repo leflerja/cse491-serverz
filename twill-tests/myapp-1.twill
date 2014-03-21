@@ -1,0 +1,29 @@
+go /
+code 200
+find "This is leflerja's Web server"
+
+go /content
+code 200
+find "This is the content page"
+
+go /files
+code 200
+follow test.txt
+find "This is a text file"
+
+go /images
+code 200
+follow chrome.png
+code 200
+
+go /images_thumb
+code 200
+follow ubuntu.png
+code 200
+
+go /form
+code 200
+formvalue 1 firstname Jason
+formvalue 1 lastname Lefler
+submit
+find "Hello Jason Lefler"

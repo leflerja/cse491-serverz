@@ -85,8 +85,19 @@
 2014-03-15  Jason Lefler <leflerja@arctic.cse.msu.edu>
 
  * ref-server.py: Removed
+ * twill-tests: Added all twill tests
+ * images: Added 2 more images to test the project
 
 2014-03-16  Jason Lefler <leflerja@arctic.cse.msu.edu>
 
  * render.py: Removed
+ * test_server.py: Updated to send arguments to main()
+ * images.html: Fixed the href tag
+ * images_thumb.html: Added new page with thumbnail images
+ * Project 5: I created an /images_thumb page out of the thumbnails of the
+       images from the /images page. It is listed in index.html and is tested
+       like all the other pages. The html (images_thumb.html) loops through
+       the images, displaying them (reduced to 50 X 50 pixels), 4 per row. Like
+       images.html, they are in alphabetic order, and will appear on a new page
+       in full size if the image is selected.
 

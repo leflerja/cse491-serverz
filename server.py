@@ -1,5 +1,9 @@
 #!/usr/bin/env python
+import argparse
 from app import make_app
+import imageapp
+import quixote
+from quixote.demo.altdemo import create_publisher
 import random
 import socket
 from StringIO import StringIO
@@ -68,26 +72,74 @@ def handle_connection(conn, port):
         conn.send(data)
     conn.close()
 
+def get_args():
+    app_list = ['altdemo', 'image', 'myapp']
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-A', action="store",
+                              dest='arg_app',
+                              help="The application to run")
+    parser.add_argument('-p', action="store",
+                              default=0,
+                              dest='arg_port',
+                              help="The port to use (optional)",
+                              required=False,
+                              type=int)
+
+    results = parser.parse_args()
+    if results.arg_app not in app_list:
+       print '\nError, that application does not exist\n'
+       exit()
+    return results.arg_app, results.arg_port
+
 def main(socketmodule=None):
     if socketmodule is None:
         socketmodule = socket
 
-    s = socketmodule.socket()         # Create a socket object
-    host = socketmodule.getfqdn()     # Get local machine name
-    port = random.randint(8000, 9999)
-    s.bind((host, port))              # Bind to the port
+    app, port = get_args()
 
-    print 'Starting server on', host, port
-    print 'The Web server URL for this would be http://%s:%d/' % (host, port)
+    if app == 'myapp':
+        s = socketmodule.socket()
+        host = socketmodule.getfqdn()
+        if port == 0:
+            port = random.randint(8000, 9999)
+        s.bind((host, port))
+        print 'Starting server on', host, port
+        print 'The Web server URL for this would be http://%s:%d/' % (host, port)
+        s.listen(5)
+        print 'Entering infinite loop; hit CTRL-C to exit'
+        while True:
+            c, (client_host, client_port) = s.accept()
+            print 'Got connection from', client_host, client_port
+            handle_connection(c, client_port)
 
-    s.listen(5)                       # Now wait for client connection
+    elif app == 'image':
+        imageapp.setup()
+        p = imageapp.create_publisher()
+        wsgi_app = quixote.get_wsgi_app()
+        from wsgiref.simple_server import make_server
+        host = socketmodule.getfqdn()
+        if port == 0:
+            port = random.randint(8000, 9999)
+        httpd = make_server('', port, wsgi_app)
+        print 'Starting server on', host, port
+        print 'The Web server URL for this would be http://%s:%d/' % (host, port)
+        try:
+            httpd.serve_forever()
+        finally:
+            imageapp.teardown()       
 
-    print 'Entering infinite loop; hit CTRL-C to exit'
-    while True:
-        # Establish connection with client
-        c, (client_host, client_port) = s.accept()
-        print 'Got connection from', client_host, client_port
-        handle_connection(c, client_port)
+    elif app == 'altdemo':
+        p = create_publisher()
+        wsgi_app = quixote.get_wsgi_app()
+        from wsgiref.simple_server import make_server
+        host = socketmodule.getfqdn()
+        if port == 0:
+            port = random.randint(8000, 9999)
+        p.is_thread_safe = True
+        httpd = make_server('', port, wsgi_app)
+        print 'Starting server on', host, port
+        print 'The Web server URL for this would be http://%s:%d/' % (host, port)
+        httpd.serve_forever()
 
 if __name__ == '__main__':
     main()

@@ -1,5 +1,5 @@
 body {
-  background: url('img/body.jpg');
+  background: #E7E7E7 url('body.jpg') top left;
   color: #564b47;
   font-family: Verdana, Arial, SunSans-Regular, Sans-Serif;
   font-size: 11px;

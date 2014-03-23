@@ -107,3 +107,7 @@
  * quotes: Added the app files
  * server.py: Added the code to run the chat and quotes apps
 
+2014-03-23  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * imageapp/templates: Added the "Touching" css to imageapp
+

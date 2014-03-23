@@ -1,0 +1,121 @@
+body {
+  background: url('img/body.jpg');
+  color: #564b47;
+  font-family: Verdana, Arial, SunSans-Regular, Sans-Serif;
+  font-size: 11px;
+  margin: 0px;
+  padding: 0px;
+}
+
+a         {color: #DB7093;}
+a:active  {color: #000000;}
+a:hover   {color: #c43300;}
+a:visited {color: #c43300;}
+
+h1 {
+  font-size: 11px;
+  margin: 0px;
+  text-transform: uppercase;
+}
+
+h2 {
+  color: #9A1212;
+  font-size: 20px;
+  font-weight: normal;
+  margin: 0px;
+  padding: 5px 10px;
+}
+
+img.download {
+  vertical-align: middle;
+}
+
+#container {
+  background: #E8E8E8 url('img/menubottom.jpg') no-repeat bottom left;
+  border: 1px solid #8D8D8D;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 760px;
+}
+
+#banner {
+  background: #e1ddd9 url('img/header.jpg');
+  height: 114px;
+  margin: 0px;
+  padding: 0px;
+  text-align: center;
+}
+
+#banner img {
+  padding: 10px 0px;
+}
+
+#bannertitle {
+  font-size: 2em;
+  font-weight: bold;
+  padding-top: 50px;
+}
+
+#content {
+  background: #ffffff url('img/content.jpg') no-repeat top right;
+  margin-left: 200px;
+  margin-right: 0px;
+  padding: 0px;
+}
+
+div#content {
+  min-height: 600px;
+}
+
+p, pre {
+  margin: 0px;
+  padding: 5px 10px;
+}
+
+#left {
+  background: #E8E8E8;
+  float: left;
+  height: 90%;
+  margin: 0px;
+  padding: 0px;
+  width: 200px;
+}
+
+#footer {
+  background: url('img/footer.gif') repeat-x;
+  clear: both;
+  height: 35px;
+  margin: 0px;
+  padding: 0px;
+  text-align: right; 
+}
+
+#footer h1 a {
+  color: #FFFFFF;
+}
+
+#footer h1 {
+  padding: 5px 5px 0px 0px;
+}
+
+.verticalmenu ul {
+  list-style: none;
+  margin: 0px;
+  padding: 10px;
+}
+
+.verticalmenu li, a:link, .verticalmenu a:visited, .verticalmenu a:hover {
+  color: #9A1212;
+  display: block;
+  font: bold 1.1em Verdana, Arial, Helvetica, sans-serif;
+  height: 32px;
+  text-align: left;
+  text-decoration: none;
+  width: 140px;
+}
+
+.verticalmenu a:hover {
+  background: url('img/menuhover.gif') no-repeat;
+  color: #dc4d1b;
+}

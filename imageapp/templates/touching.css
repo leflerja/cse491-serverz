@@ -31,7 +31,7 @@ img.download {
 }
 
 #container {
-  background: #E8E8E8 url('img/menubottom.jpg') no-repeat bottom left;
+  background: #E8E8E8 url('menubottom.jpg') no-repeat bottom left;
   border: 1px solid #8D8D8D;
   height: 100%;
   margin-left: auto;
@@ -40,7 +40,7 @@ img.download {
 }
 
 #banner {
-  background: #e1ddd9 url('img/header.jpg');
+  background: #e1ddd9 url('header.jpg');
   height: 114px;
   margin: 0px;
   padding: 0px;
@@ -58,7 +58,7 @@ img.download {
 }
 
 #content {
-  background: #ffffff url('img/content.jpg') no-repeat top right;
+  background: #ffffff url('content.jpg') no-repeat top right;
   margin-left: 200px;
   margin-right: 0px;
   padding: 0px;
@@ -83,7 +83,7 @@ p, pre {
 }
 
 #footer {
-  background: url('img/footer.gif') repeat-x;
+  background: url('footer.gif') repeat-x;
   clear: both;
   height: 35px;
   margin: 0px;
@@ -116,6 +116,6 @@ p, pre {
 }
 
 .verticalmenu a:hover {
-  background: url('img/menuhover.gif') no-repeat;
+  background: url('menuhover.gif') no-repeat;
   color: #dc4d1b;
 }

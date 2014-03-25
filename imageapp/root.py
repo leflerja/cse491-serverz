@@ -38,3 +38,33 @@ class RootDirectory(Directory):
         response.set_content_type('image/png')
         img = image.get_latest_image()
         return img
+
+    @export(name='body.jpg')
+    def body_jpg(self):
+        data = html.get_image('body.jpg')
+        return data
+
+    @export(name='content.jpg')
+    def content_jpg(self):
+        data = html.get_image('content.jpg')
+        return data
+
+    @export(name='footer.gif')
+    def footer_gif(self):
+        data = html.get_image('footer.gif')
+        return data
+
+    @export(name='header.jpg')
+    def header_jpg(self):
+        data = html.get_image('header.jpg')
+        return data
+
+    @export(name='menubottom.jpg')
+    def menubottom_jpg(self):
+        data = html.get_image('menubottom.jpg')
+        return data
+
+    @export(name='menuhover.gif')
+    def menuhover_gif(self):
+        data = html.get_image('menuhover.gif')
+        return data

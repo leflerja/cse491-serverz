@@ -2,6 +2,7 @@ import os
 import jinja2
 
 template_dir = './templates'
+image_dir = './templates/img'
 loader = None
 env = None
 
@@ -22,3 +23,11 @@ def init_templates():
 def render(template_name, values={}):
     template = env.get_template(template_name)
     return template.render(values)
+
+def get_image(img):
+    dirname = os.path.dirname(__file__)
+    i_dir = os.path.join(dirname, image_dir)
+    i_dir = os.path.abspath(i_dir)
+    image = i_dir + '/' + img
+    data = open(image, 'rb').read()
+    return data

@@ -111,3 +111,8 @@
 
  * imageapp/templates: Added the "Touching" css to imageapp
 
+2014-03-25  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * imageapp/root.py: Exported CSS background images so they would appear
+ * imageapp/html.py: Opened and read images for root.py
+

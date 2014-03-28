@@ -1,10 +1,35 @@
 <!DOCTYPE html>
 <html>
- <head>
-  <meta http-equiv="Content-Type" content="text/html">
- </head>
- <body>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html">
+    <style type="text/css">{% include "touching.css" %}</style>
+  </head>
+  
+  <body>
+    <div id="container">
+      <div id="banner">
+        <div id="bannertitle">Touching CSS Template</div>
+      </div>
+      <div>
+        <div>
+          <div id="left">
+            <div class="verticalmenu">
+              <ul>
+                <li><a href='upload'>Upload an image</a></li>
+                <li><a href='image'>Show most recent image</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div id="content">
+
 {% block content %}
 {% endblock %}
- </body>
+
+          </div>
+        </div>
+      </div>
+      <div id="footer"></div>
+    </div>
+  </body>
 </html>

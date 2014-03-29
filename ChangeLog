@@ -119,3 +119,10 @@
  * imageapp/html.py: It opens and reads the background images in the CSS and
        returns them to root.py
 
+2014-03-29  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * imageapp/__init__.py: I changed it to load the dice.png file from the
+       images folder where all the images are instead of the imageapp folder
+ * Project 6: I added metadata uploading to the imageapp. The name and
+       description of the image are stored in a dictionary with the image.
+

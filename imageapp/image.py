@@ -1,19 +1,23 @@
 # image handling API
 
-images = {}
+# This is a list of image dictionaries
+images = []
 
 def add_image(data):
-    if images:
-        image_num = max(images.keys()) + 1
-    else:
-        image_num = 0
-        
-    images[image_num] = data
-    return image_num
+    images.append(data)
+    return len(images)
+
+def add_image_metadata(data, name, desc):
+    img = {'data' : data}
+    img['name'] = name
+    img['desc'] = desc
+
+    return img
 
 def get_image(num):
-    return images[num]
+    img = images[num]
+    return img['data']
 
 def get_latest_image():
-    image_num = max(images.keys())
-    return images[image_num]
+    img = images[len(images) - 1]
+    return img['data']

@@ -20,11 +20,12 @@ class RootDirectory(Directory):
         print request.form.keys()
 
         the_file = request.form['file']
-        print dir(the_file)
-        print 'received file with name:', the_file.base_filename
+        file_name = request.form['name']
+        file_desc = request.form['desc']
         data = the_file.read(int(1e9))
 
-        image.add_image(data)
+        img = image.add_image_metadata(data, file_name, file_desc)
+        image.add_image(img)
 
         return quixote.redirect('./')
 

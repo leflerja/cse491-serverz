@@ -40,6 +40,28 @@ class RootDirectory(Directory):
         img = image.get_latest_image()
         return img
 
+    @export(name='search')
+    def search(self):
+        return html.render('search.html')
+
+    @export(name='search_result')
+    def search_result(self):
+        request = quixote.get_request()
+
+        file_name = request.form['name']
+        file_desc = request.form['desc']
+
+        results = image.image_search(file_name, file_desc)
+        return html.render('search_results.html', results)
+
+    @export(name='update_latest')
+    def update_latest(self):
+        request = quixote.get_request()
+        image.update_list(request.form)
+        return html.render('image.html')
+
+# The below functions are needed for the CSS background images
+
     @export(name='body.jpg')
     def body_jpg(self):
         data = html.get_image('body.jpg')

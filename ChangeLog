@@ -130,3 +130,10 @@
 
  * imageapp/search.html: Added this to search image metadata
 
+2014-04-01  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * Project 7: I added the ability to search the image metadata. Just use the
+       search link on the sidebar to search the images by name and/or
+       description. If an image is selected after being searched for, it is
+       moved to the end of the images list (making it the latest image).
+

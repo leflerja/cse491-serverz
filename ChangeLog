@@ -137,3 +137,9 @@
        description. If an image is selected after being searched for, it is
        moved to the end of the images list (making it the latest image).
 
+2014-04-03  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * cookieapp.py: I added the cookie app code
+ * server.py: I added the cookie app to the options with "-A cookie"
+ * twill-tests/cookieapp.twill: I added the twill tests from /day23
+

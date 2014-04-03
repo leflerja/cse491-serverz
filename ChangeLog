@@ -119,3 +119,21 @@
  * imageapp/html.py: It opens and reads the background images in the CSS and
        returns them to root.py
 
+2014-03-29  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * imageapp/__init__.py: I changed it to load the dice.png file from the
+       images folder where all the images are instead of the imageapp folder
+ * Project 6: I added metadata uploading to the imageapp. The name and
+       description of the image are stored in a dictionary with the image.
+
+2014-03-30  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * imageapp/search.html: Added this to search image metadata
+
+2014-04-01  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * Project 7: I added the ability to search the image metadata. Just use the
+       search link on the sidebar to search the images by name and/or
+       description. If an image is selected after being searched for, it is
+       moved to the end of the images list (making it the latest image).
+

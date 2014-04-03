@@ -20,11 +20,12 @@ class RootDirectory(Directory):
         print request.form.keys()
 
         the_file = request.form['file']
-        print dir(the_file)
-        print 'received file with name:', the_file.base_filename
+        file_name = request.form['name']
+        file_desc = request.form['desc']
         data = the_file.read(int(1e9))
 
-        image.add_image(data)
+        img = image.add_image_metadata(data, file_name, file_desc)
+        image.add_image(img)
 
         return quixote.redirect('./')
 
@@ -38,6 +39,28 @@ class RootDirectory(Directory):
         response.set_content_type('image/png')
         img = image.get_latest_image()
         return img
+
+    @export(name='search')
+    def search(self):
+        return html.render('search.html')
+
+    @export(name='search_result')
+    def search_result(self):
+        request = quixote.get_request()
+
+        file_name = request.form['name']
+        file_desc = request.form['desc']
+
+        results = image.image_search(file_name, file_desc)
+        return html.render('search_results.html', results)
+
+    @export(name='update_latest')
+    def update_latest(self):
+        request = quixote.get_request()
+        image.update_list(request.form)
+        return html.render('image.html')
+
+# The below functions are needed for the CSS background images
 
     @export(name='body.jpg')
     def body_jpg(self):

@@ -1,0 +1,6 @@
+apple.jpg|The Apple company logo
+chrome.png|The Google Chrome logo
+dice.png|A picture of dice
+firefox.png|The Mozilla Firefox logo
+tux.png|The Linux logo
+ubuntu.png|The Ubuntu Linux logo

@@ -1,7 +1,7 @@
 import quixote
 from quixote.directory import Directory, export, subdir
 
-from . import html, image
+from . import html, image, sqlite
 
 class RootDirectory(Directory):
     _q_exports = []
@@ -10,6 +10,12 @@ class RootDirectory(Directory):
     def index(self):
         return html.render('index.html')
 
+    @export(name='css')
+    def css(self):
+        response = quixote.get_response()
+        response.set_content_type('text/css')
+        return html.load_file('touching.css')
+
     @export(name='upload')
     def upload(self):
         return html.render('upload.html')
@@ -17,15 +23,13 @@ class RootDirectory(Directory):
     @export(name='upload_receive')
     def upload_receive(self):
         request = quixote.get_request()
-        print request.form.keys()
 
         the_file = request.form['file']
         file_name = request.form['name']
         file_desc = request.form['desc']
         data = the_file.read(int(1e9))
 
-        img = image.add_image_metadata(data, file_name, file_desc)
-        image.add_image(img)
+        sqlite.upload_image(data, file_name, file_desc)
 
         return quixote.redirect('./')
 
@@ -37,7 +41,7 @@ class RootDirectory(Directory):
     def image_raw(self):
         response = quixote.get_response()
         response.set_content_type('image/png')
-        img = image.get_latest_image()
+        img = sqlite.get_latest_image()
         return img
 
     @export(name='search')
@@ -51,14 +55,19 @@ class RootDirectory(Directory):
         file_name = request.form['name']
         file_desc = request.form['desc']
 
-        results = image.image_search(file_name, file_desc)
+        results = sqlite.image_search(file_name, file_desc)
         return html.render('search_results.html', results)
 
     @export(name='update_latest')
     def update_latest(self):
         request = quixote.get_request()
-        image.update_list(request.form)
+        sqlite.update_latest(request.form)
         return html.render('image.html')
+
+    @export(name='gallery')
+    def image_gallery(self):
+        results = sqlite.get_image_gallery()
+        return html.render('gallery.html', results)
 
 # The below functions are needed for the CSS background images
 

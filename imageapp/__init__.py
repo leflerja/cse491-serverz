@@ -4,7 +4,7 @@ from quixote.publish import Publisher
 
 # this imports the class RootDirectory from the file 'root.py'
 from .root import RootDirectory
-from . import html, image
+from . import html, image, sqlite
 
 def create_publisher():
      p = Publisher(RootDirectory(), display_exceptions='plain')
@@ -13,15 +13,7 @@ def create_publisher():
  
 def setup():                            # stuff that should be run once.
     html.init_templates()
-    i1 = open('images/dice.png', 'rb').read()
-    img1 = image.add_image_metadata(i1, "dice", "A picture of dice")
-    image.add_image(img1)
-    i2 = open('images/firefox.png', 'rb').read()
-    img2 = image.add_image_metadata(i2, "firefox", "The Mozilla Firefox icon")
-    image.add_image(img2)
-    i3 = open('images/ubuntu.png', 'rb').read()
-    img3 = image.add_image_metadata(i3, "ubuntu", "The Ubuntu Linux distro icon")
-    image.add_image(img3)
+    sqlite.create_db()
 
 def teardown():                         # stuff that should be run once.
     pass

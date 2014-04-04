@@ -143,3 +143,7 @@
  * server.py: I added the cookie app to the options with "-A cookie"
  * twill-tests/cookieapp.twill: I added the twill tests from /day23
 
+2014-04-04  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * Project 16: I added a SQLite database to store the images.
+

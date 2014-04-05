@@ -44,6 +44,12 @@ class RootDirectory(Directory):
         response.set_content_type(type)
         return img
 
+    @export(name='image_thumb')
+    def image_thumb(self):
+        request = quixote.get_request()
+        img = sqlite.get_image_thumb(request.form)
+        return img
+
     @export(name='search')
     def search(self):
         return html.render('search.html')
@@ -68,6 +74,11 @@ class RootDirectory(Directory):
     def image_gallery(self):
         results = sqlite.get_image_gallery()
         return html.render('gallery.html', results)
+
+    @export(name='thumb')
+    def image_thumbnails(self):
+        results = sqlite.get_indexes()
+        return html.render('thumbnail.html', results)
 
 # The below functions are needed for the CSS background images
 

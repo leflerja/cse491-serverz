@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Image Thumbnails:</h2>
+
+<table border=0 cellspacing=5>
+  {% for i in results %}
+    {% if loop.index is divisibleby 5 or loop.first %}
+    <tr>
+    {% endif %}
+      <td id="thumb">
+        <a href=update_latest?i={{ i['index'] }}>
+          <img src='image_thumb?i={{ i['index'] }}' width=50 height=50>
+        </a>
+      </td>
+    {% if (loop.index + 1) is divisibleby 5 or loop.last %}
+    </tr>
+    {% endif %}
+  {% endfor %}
+
+</table>
+
+{% endblock %}

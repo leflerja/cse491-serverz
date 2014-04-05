@@ -87,6 +87,30 @@ def get_latest_image():
     image, name = c.fetchone()
     return image, guess_type(name)[0]
 
+def get_indexes():
+    img_results = {'img' : 'img'}
+    img_results['results'] = []
+
+    db = sqlite3.connect(IMAGES_DB)
+    c = db.cursor()
+
+    c.execute('SELECT i FROM image_store ORDER BY i ASC')
+    for row in c:
+        result = {'index' : row[0]}
+        img_results['results'].append(result)
+    
+    return img_results    
+
+def get_image_thumb(form_data):
+    img_idx = int(form_data['i'])
+    db = sqlite3.connect(IMAGES_DB)
+    db.text_factory = bytes
+    c = db.cursor()
+
+    c.execute('SELECT image FROM image_store WHERE i=?', (img_idx,))
+    image = c.fetchone()
+    return image[0]
+
 def update_latest(form_data):
     img_idx = int(form_data['i'])
     set_latest(img_idx)

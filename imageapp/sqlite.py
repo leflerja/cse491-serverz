@@ -8,18 +8,21 @@ image_dir = '../images'
 
 
 # Create the database if it does not already exist
+# Create the image_store and users tables
 def create_db(): 
     if not os.path.exists(IMAGES_DB):
         db = sqlite3.connect(IMAGES_DB)
         db.execute('CREATE TABLE image_store ' +
                    '(i INTEGER PRIMARY KEY, image BLOB, ' +
                    'name TEXT, desc TEXT, latest INTEGER DEFAULT 0)');
+        db.execute('CREATE TABLE users ' +
+                   '(username TEXT PRIMARY KEY, password TEXT)');
         db.commit()
         db.close()
         init_load()
 
-# Load all images in ../images directory and metadata
-# from ./image_metadata.txt
+# Load all images in ../images directory, metadata from
+# ./image_metadata.txt, and my user info
 def init_load():
     dirname = os.path.dirname(__file__)
     i_dir = os.path.join(dirname, image_dir)
@@ -42,6 +45,9 @@ def init_load():
 
     # Set the last image loaded as the latest
     set_latest(cnt - 1)
+
+    # Add me
+    create_account('jason', 'jason')
 
 def insert_image(data):
     db = sqlite3.connect(IMAGES_DB)
@@ -85,6 +91,7 @@ def get_latest_image():
 
     c.execute('SELECT image, name FROM image_store WHERE latest=1 LIMIT 1')
     image, name = c.fetchone()
+    db.close()
     return image, guess_type(name)[0]
 
 def get_indexes():
@@ -98,6 +105,7 @@ def get_indexes():
     for row in c:
         result = {'index' : row[0]}
         img_results['results'].append(result)
+    db.close()
     
     return img_results    
 
@@ -109,6 +117,7 @@ def get_image_thumb(form_data):
 
     c.execute('SELECT image FROM image_store WHERE i=?', (img_idx,))
     image = c.fetchone()
+    db.close()
     return image[0]
 
 def update_latest(form_data):
@@ -128,6 +137,7 @@ def get_image_gallery():
         result['name'] = row[1]
         result['desc'] = row[2]
         img_results['results'].append(result)
+    db.close()
 
     return img_results
 
@@ -154,6 +164,37 @@ def image_search(name, desc):
         result['name'] = row[1]
         result['desc'] = row[2]
         img_results['results'].append(result)
+    db.close()
 
     return img_results
 
+def check_for_user(name):
+    db = sqlite3.connect(IMAGES_DB)
+    c = db.cursor()
+
+    c.execute('SELECT EXISTS (SELECT 1 FROM users ' +
+              'WHERE username=?)', (name,))
+    row = c.fetchone()
+    db.close()
+
+    return row[0]
+
+def insert_user(name, pass):
+    db = sqlite3.connect(IMAGES_DB)
+    c = db.cursor()
+
+    data = (name, pass,)
+    c.execute('INSERT INTO users (username, password) VALUES (?)', (data))
+    db.commit()
+    db.close()
+
+def create_account(name, pass):
+    user_exists = check_for_user(name)
+
+    if user_exists:
+        return 'error'
+    else:
+        insert_user(name, pass)
+
+def login_user(form_data):
+    d

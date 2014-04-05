@@ -16,6 +16,18 @@ class RootDirectory(Directory):
         response.set_content_type('text/css')
         return html.load_file('touching.css')
 
+    @export(name='login')
+    def login(self):
+        return html.render('login.html')
+
+    @export(name='login_user')
+    def login_user(self):
+        return html.render('login_result.html', result)
+
+    @export(name='logout')
+    def logout(self):
+        return quixote.redirect('./')
+
     @export(name='upload')
     def upload(self):
         return html.render('upload.html')

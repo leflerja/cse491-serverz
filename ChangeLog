@@ -4,6 +4,9 @@
  * image.py: Was replaced with sqlite.py
  * galley.html: The formatting and title were fixed, and the indexes were added
  * touching.css: I added the table elements for galley.html
+ * Project 4: I imported guess_type from mimetypes and added jpeg and tiff
+       images. I made minor changes to sqlite.py and root.py for the needed
+       functionality.
 
 2014-04-04  Jason Lefler <leflerja@arctic.cse.msu.edu>
 

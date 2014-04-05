@@ -40,8 +40,8 @@ class RootDirectory(Directory):
     @export(name='image_raw')
     def image_raw(self):
         response = quixote.get_response()
-        response.set_content_type('image/png')
-        img = sqlite.get_latest_image()
+        img, type = sqlite.get_latest_image()
+        response.set_content_type(type)
         return img
 
     @export(name='search')

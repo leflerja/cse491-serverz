@@ -1,3 +1,4 @@
+from mimetypes import guess_type
 import os
 import sqlite3
 import sys
@@ -17,7 +18,8 @@ def create_db():
         db.close()
         init_load()
 
-# Load all images in ../images directory and metadata from ./image_metadata.txt
+# Load all images in ../images directory and metadata
+# from ./image_metadata.txt
 def init_load():
     dirname = os.path.dirname(__file__)
     i_dir = os.path.join(dirname, image_dir)
@@ -81,9 +83,9 @@ def get_latest_image():
     db.text_factory = bytes
     c = db.cursor()
 
-    c.execute('SELECT i, image FROM image_store WHERE latest=1 LIMIT 1')
-    i, image = c.fetchone()
-    return image
+    c.execute('SELECT image, name FROM image_store WHERE latest=1 LIMIT 1')
+    image, name = c.fetchone()
+    return image, guess_type(name)[0]
 
 def update_latest(form_data):
     img_idx = int(form_data['i'])

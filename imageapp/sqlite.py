@@ -92,6 +92,7 @@ def get_latest_image():
     c.execute('SELECT image, name FROM image_store WHERE latest=1 LIMIT 1')
     image, name = c.fetchone()
     db.close()
+
     return image, guess_type(name)[0]
 
 def get_indexes():
@@ -118,6 +119,7 @@ def get_image_thumb(form_data):
     c.execute('SELECT image FROM image_store WHERE i=?', (img_idx,))
     image = c.fetchone()
     db.close()
+
     return image[0]
 
 def update_latest(form_data):

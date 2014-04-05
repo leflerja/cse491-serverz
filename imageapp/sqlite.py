@@ -85,6 +85,8 @@ def get_latest_image():
 
     c.execute('SELECT image, name FROM image_store WHERE latest=1 LIMIT 1')
     image, name = c.fetchone()
+    db.close()
+
     return image, guess_type(name)[0]
 
 def get_indexes():
@@ -98,6 +100,7 @@ def get_indexes():
     for row in c:
         result = {'index' : row[0]}
         img_results['results'].append(result)
+    db.close()
     
     return img_results    
 
@@ -109,6 +112,8 @@ def get_image_thumb(form_data):
 
     c.execute('SELECT image FROM image_store WHERE i=?', (img_idx,))
     image = c.fetchone()
+    db.close()
+
     return image[0]
 
 def update_latest(form_data):
@@ -128,6 +133,7 @@ def get_image_gallery():
         result['name'] = row[1]
         result['desc'] = row[2]
         img_results['results'].append(result)
+    db.close()
 
     return img_results
 
@@ -154,6 +160,7 @@ def image_search(name, desc):
         result['name'] = row[1]
         result['desc'] = row[2]
         img_results['results'].append(result)
+    db.close()
 
     return img_results
 

@@ -4,7 +4,7 @@ from quixote.publish import Publisher
 
 # this imports the class RootDirectory from the file 'root.py'
 from .root import RootDirectory
-from . import html, image, sqlite
+from . import html, sqlite
 
 def create_publisher():
      p = Publisher(RootDirectory(), display_exceptions='plain')

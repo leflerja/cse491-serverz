@@ -119,3 +119,12 @@ p, pre {
   background: url('menuhover.gif') no-repeat;
   color: #dc4d1b;
 }
+
+table {
+  table-layout: fixed;
+  width: 500px;
+}
+
+td#one {
+  width: 25px;
+}

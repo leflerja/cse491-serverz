@@ -1,7 +1,7 @@
 import quixote
 from quixote.directory import Directory, export, subdir
 
-from . import html, image, sqlite
+from . import html, sqlite
 
 class RootDirectory(Directory):
     _q_exports = []

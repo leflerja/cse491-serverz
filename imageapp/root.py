@@ -24,6 +24,24 @@ class RootDirectory(Directory):
     def login_user(self):
         return html.render('login_result.html', result)
 
+    @export(name='create_user')
+    def create_user(self):
+        return html.render('create_user.html')
+
+    @export(name='create_account')
+    def create_account(self):
+        message = 'Your account has been created and you are logged in as '
+        request = quixote.get_request()
+
+        name = request.form['username']
+        pass = request.form['password']
+        result = sqlite.create_account(name, pass)
+
+        if result = 'error':
+            message = 'That username is already taken, please try again'
+
+        return html.render('create_user.html', message)
+
     @export(name='logout')
     def logout(self):
         return quixote.redirect('./')

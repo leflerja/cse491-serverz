@@ -181,7 +181,7 @@ def check_for_user(name):
 
     return row[0]
 
-def insert_user(name, pass):
+def add_user(name, pass):
     db = sqlite3.connect(IMAGES_DB)
     c = db.cursor()
 
@@ -196,7 +196,8 @@ def create_account(name, pass):
     if user_exists:
         return 'error'
     else:
-        insert_user(name, pass)
+        add_user(name, pass)
+        return 'success'
 
 def login_user(form_data):
     d

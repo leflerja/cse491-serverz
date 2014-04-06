@@ -6,7 +6,9 @@
  * touching.css: I added the table elements for galley.html
  * Project 4: I imported guess_type from mimetypes and added jpeg and tiff
        images. I made minor changes to sqlite.py and root.py for the needed
-       functionality.
+       functionality. The names of the files are used to determine their type,
+       so any files uploaded MUST have a .png or whatever at the end of their
+       name to work (like dice.png).
  * Project 5: I migrated the thumbnail gallery to imageapp
 
 2014-04-04  Jason Lefler <leflerja@arctic.cse.msu.edu>
@@ -14,7 +16,8 @@
  * Project 16: I added a SQLite database to store the images. The database is
        created if the .sqlite file doesn't already exist. After being created,
        it is loaded with the images from /images, and the image_metadata.txt
-       file in /imageapp.
+       file in /imageapp. The app works as usual, there are no noticable
+       differences on the front-end.
 
 2014-04-03  Jason Lefler <leflerja@arctic.cse.msu.edu>
 
@@ -27,7 +30,11 @@
  * Project 7: I added the ability to search the image metadata. Just use the
        search link on the sidebar to search the images by name and/or
        description. If an image is selected after being searched for, it is
-       moved to the end of the images list (making it the latest image).
+       moved to the end of the images list (making it the latest image). The
+       searches are not case sensitive. A file name search will return all
+       exact matches, while a description search will return all files with
+       the word(s) surrounded by anything. Select the "Image List" link on
+       the left menu for a list of all image names and descriptions in the db.
 
 2014-03-30  Jason Lefler <leflerja@arctic.cse.msu.edu>
 

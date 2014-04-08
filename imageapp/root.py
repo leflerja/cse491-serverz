@@ -16,17 +16,13 @@ class RootDirectory(Directory):
 
     @export(name='create_account')
     def create_account(self):
-        message = 'Your account has been created and you are logged in as '
         request = quixote.get_request()
 
         name = request.form['username']
         password = request.form['password']
-        result = sqlite.create_account(name, password)
+        results = sqlite.create_account(name, password)
 
-        if result == 'error':
-            message = 'That username is already taken, please try again'
-
-        return html.render('create_user.html', message)
+        return html.render('create_user.html', results)
 
     @export(name='css')
     def css(self):

@@ -195,13 +195,24 @@ def check_for_user(name):
     return row[0]
 
 def create_account(name, password):
+    user_results = {'users' : 'users'}
+    user_results['results'] = []
+
+    # Make sure fields aren't empty or just spaces
+
     user_exists = check_for_user(name)
 
-    if user_exists:
-        return 'error'
+    if user_exists == 1:
+        result = {'username' : name}
+        result['message'] = 'That username already exists, please try again'
+        user_results['results'].append(result)
     else:
         add_user(name, password)
-        return 'success'
+        result = {'username' : name}
+        result['message'] = 'The account was successfully created'
+        user_results['results'].append(result)
+
+    return user_results
 
 def delete_user(form_data):
     username = form_data['u']

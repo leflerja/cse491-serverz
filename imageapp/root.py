@@ -6,23 +6,9 @@ from . import html, sqlite
 class RootDirectory(Directory):
     _q_exports = []
 
-    @export(name='')                    # this makes it public.
+    @export(name='')
     def index(self):
         return html.render('index.html')
-
-    @export(name='css')
-    def css(self):
-        response = quixote.get_response()
-        response.set_content_type('text/css')
-        return html.load_file('touching.css')
-
-    @export(name='login')
-    def login(self):
-        return html.render('login.html')
-
-    @export(name='login_user')
-    def login_user(self):
-        return html.render('login_result.html', result)
 
     @export(name='create_user')
     def create_user(self):
@@ -34,34 +20,31 @@ class RootDirectory(Directory):
         request = quixote.get_request()
 
         name = request.form['username']
-        pass = request.form['password']
-        result = sqlite.create_account(name, pass)
+        password = request.form['password']
+        result = sqlite.create_account(name, password)
 
-        if result = 'error':
+        if result == 'error':
             message = 'That username is already taken, please try again'
 
         return html.render('create_user.html', message)
 
-    @export(name='logout')
-    def logout(self):
-        return quixote.redirect('./')
+    @export(name='css')
+    def css(self):
+        response = quixote.get_response()
+        response.set_content_type('text/css')
+        return html.load_file('touching.css')
 
-    @export(name='upload')
-    def upload(self):
-        return html.render('upload.html')
-
-    @export(name='upload_receive')
-    def upload_receive(self):
+    @export(name='delete_user')
+    def delete_user(self):
         request = quixote.get_request()
+        sqlite.delete_user(request.form)
+        results = sqlite.users_list()
+        return html.render('users.html', results)
 
-        the_file = request.form['file']
-        file_name = request.form['name']
-        file_desc = request.form['desc']
-        data = the_file.read(int(1e9))
-
-        sqlite.upload_image(data, file_name, file_desc)
-
-        return quixote.redirect('./')
+    @export(name='gallery')
+    def image_gallery(self):
+        results = sqlite.get_image_gallery()
+        return html.render('gallery.html', results)
 
     @export(name='image')
     def image(self):
@@ -80,6 +63,18 @@ class RootDirectory(Directory):
         img = sqlite.get_image_thumb(request.form)
         return img
 
+    @export(name='login')
+    def login(self):
+        return html.render('login.html')
+
+    @export(name='login_user')
+    def login_user(self):
+        return html.render('login_result.html', result)
+
+    @export(name='logout')
+    def logout(self):
+        return quixote.redirect('./')
+
     @export(name='search')
     def search(self):
         return html.render('search.html')
@@ -94,21 +89,38 @@ class RootDirectory(Directory):
         results = sqlite.image_search(file_name, file_desc)
         return html.render('search_results.html', results)
 
+    @export(name='thumb')
+    def image_thumbnails(self):
+        results = sqlite.get_indexes()
+        return html.render('thumbnail.html', results)
+
     @export(name='update_latest')
     def update_latest(self):
         request = quixote.get_request()
         sqlite.update_latest(request.form)
         return html.render('image.html')
 
-    @export(name='gallery')
-    def image_gallery(self):
-        results = sqlite.get_image_gallery()
-        return html.render('gallery.html', results)
+    @export(name='upload')
+    def upload(self):
+        return html.render('upload.html')
 
-    @export(name='thumb')
-    def image_thumbnails(self):
-        results = sqlite.get_indexes()
-        return html.render('thumbnail.html', results)
+    @export(name='upload_receive')
+    def upload_receive(self):
+        request = quixote.get_request()
+
+        the_file = request.form['file']
+        file_name = request.form['name']
+        file_desc = request.form['desc']
+        data = the_file.read(int(1e9))
+
+        sqlite.upload_image(data, file_name, file_desc)
+
+        return quixote.redirect('./')
+
+    @export(name='users')
+    def users(self):
+        results = sqlite.users_list()
+        return html.render('users.html', results)
 
 # The below functions are needed for the CSS background images
 

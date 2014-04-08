@@ -63,10 +63,6 @@ class RootDirectory(Directory):
     def login(self):
         return html.render('login.html')
 
-    @export(name='login_user')
-    def login_user(self):
-        return html.render('login_result.html', result)
-
     @export(name='logout')
     def logout(self):
         return quixote.redirect('./')

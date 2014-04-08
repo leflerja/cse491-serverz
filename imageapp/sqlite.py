@@ -1,5 +1,6 @@
 from mimetypes import guess_type
 import os
+import re
 import sqlite3
 import sys
 
@@ -197,18 +198,32 @@ def check_for_user(name):
 def create_account(name, password):
     user_results = {'users' : 'users'}
     user_results['results'] = []
+    name_in = name.strip()
+    password_in = password.strip()
 
-    # Make sure fields aren't empty or just spaces
+    # Check if username only contains letters and numbers
+    if (not name_in) or (not re.match("^[A-Za-z0-9]*$", name_in)):
+        result = {'username' : name_in}
+        result['message'] = 'Username can only contain letters and/or numbers'
+        user_results['results'].append(result)
+        return user_results
 
-    user_exists = check_for_user(name)
+    # Check if password only contains letters and numbers
+    if (not password_in) or (not re.match("^[A-Za-z0-9]*$", password_in)):
+        result = {'username' : name_in}
+        result['message'] = 'Password can only contain letters and/or numbers'
+        user_results['results'].append(result)
+        return user_results
+
+    user_exists = check_for_user(name_in)
 
     if user_exists == 1:
-        result = {'username' : name}
+        result = {'username' : name_in}
         result['message'] = 'That username already exists, please try again'
         user_results['results'].append(result)
     else:
-        add_user(name, password)
-        result = {'username' : name}
+        add_user(name_in, password_in)
+        result = {'username' : name_in}
         result['message'] = 'The account was successfully created'
         user_results['results'].append(result)
 

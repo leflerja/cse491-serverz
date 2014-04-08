@@ -195,6 +195,18 @@ def check_for_user(name):
 
     return row[0]
 
+def check_login(name, password):
+    db = sqlite3.connect(IMAGES_DB)
+    c = db.cursor()
+
+    c.execute('SELECT EXISTS (SELECT 1 FROM users ' +
+              'WHERE username=? ' +
+              'AND password=?)', (name, password,))
+    row = c.fetchone()
+    db.close()
+
+    return row[0]
+
 def create_account(name, password):
     user_results = {'users' : 'users'}
     user_results['results'] = []
@@ -236,6 +248,33 @@ def delete_user(form_data):
     db.execute('DELETE FROM users WHERE username=?', (username,))
     db.commit()
     db.close()
+
+def login(name, password):
+    user_results = {'users' : 'users'}
+    user_results['results'] = []
+    name_in = name.strip()
+    password_in = password.strip()
+
+    user_exists = check_for_user(name_in)
+
+    if user_exists == 0:
+        result = {'username' : name_in}
+        result['message'] = 'That username does not exist, please try again'
+        user_results['results'].append(result)
+        return user_results
+
+    login_okay = check_login(name_in, password_in)
+
+    if login_okay == 0:
+        result = {'username' : name_in}
+        result['message'] = 'The login attempt failed, please try again'
+        user_results['results'].append(result)
+        return user_results
+
+    result = {'username' : name_in}
+    result['message'] = 'You are logged in as %s' % name_in
+    user_results['results'].append(result)
+    return user_results
 
 def users_list():
     user_results = {'users' : 'users'}

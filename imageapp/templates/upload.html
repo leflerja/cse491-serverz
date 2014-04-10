@@ -2,12 +2,25 @@
 
 {% block content %}
 
-<h2>Upload a PNG:</h2>
+<h2>Upload an Image:</h2>
+
+{#<script type="text/javascript">
+<!--
+  my_cookie = readCookie('User');
+  if (my_cookie) {
+
 <form enctype='multipart/form-data' action='upload_receive' method='POST'>
 <p>Filename: <input type='file' name='file'></p>
 <p>Image Name: <input type='text' name='name' size=25></p>
 <p>Description: <input type='text' name='desc' size=50></p>
 <p><input type='submit'></p>
 </form>
+
+  }
+  else {
+    document.write("You are not logged in, you must login to upload images");
+  }
+//-->
+</script>#}
 
 {% endblock %}

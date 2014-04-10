@@ -122,10 +122,11 @@ class RootDirectory(Directory):
 
         the_file = request.form['file']
         file_name = request.form['name']
+        file_owner = request.get_cookie('User')
         file_desc = request.form['desc']
         data = the_file.read(int(1e9))
 
-        sqlite.upload_image(data, file_name, file_desc)
+        sqlite.upload_image(data, file_name, file_owner, file_desc)
 
         return quixote.redirect('./')
 

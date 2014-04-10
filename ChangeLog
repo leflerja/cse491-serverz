@@ -1,3 +1,24 @@
+2014-04-10  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * Project 15: I added account creation, login, and authentication.
+
+     Login: I added the "users" table to the database to store usernames and
+       passwords.  The login page verifies a correct username/password
+       combination from the database and sets the "User" cookie to the
+       username. The login status is displayed on the top of the left menu. The
+       logout menu link sets the cookie to "null". JavaScripts on the base.html
+       page displays the login status and username if logged in.
+
+     Account Creation: A link from the login page takes you to the account
+       creation page. New account usernames are checked to see if they already
+       exist in the database. Usernames and  passwords must not be empty, and
+       must only contain alphanumeric characters. The successful creation of an
+       account does not change the login status of the user.  All users and
+       passwords can be seen (and deleted) by selecting the "Users List" link
+       on the left menu.
+
+ * Project 9: Track image owners, only allow image owners to delete images.
+
 2014-04-05  Jason Lefler <leflerja@arctic.cse.msu.edu>
 
  * ChangeLog: I started adding the newest logs to the top

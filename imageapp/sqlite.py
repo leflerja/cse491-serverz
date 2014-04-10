@@ -16,7 +16,7 @@ def create_db():
     if not os.path.exists(IMAGES_DB):
         db = sqlite3.connect(IMAGES_DB)
         db.execute('CREATE TABLE image_store ' +
-                   '(i INTEGER PRIMARY KEY, image BLOB, ' +
+                   '(i INTEGER PRIMARY KEY, image BLOB, owner TEXT' +
                    'name TEXT, desc TEXT, latest INTEGER DEFAULT 0)');
         db.execute('CREATE TABLE users ' +
                    '(username TEXT PRIMARY KEY, password TEXT)');
@@ -42,8 +42,8 @@ def init_load():
     file = open(metadata, 'r')
     cnt = 1
     for line in file:
-        n, d = line.split('|')
-        update_metadata(cnt, n, d)
+        n, o, d = line.split('|')
+        update_metadata(cnt, n, o, d)
         cnt +=1
 
     # Set the last image loaded as the latest
@@ -192,16 +192,16 @@ def update_latest(form_data):
     img_idx = int(form_data['i'])
     set_latest(img_idx)
 
-def update_metadata(i, file_name, file_desc):
+def update_metadata(i, file_name, file_owner, file_desc):
     db = sqlite3.connect(IMAGES_DB)
-    vars = (file_name, file_desc, i)
-    db.execute('UPDATE image_store SET name=?, desc=? WHERE i=?', vars)
+    vars = (file_name, file_owner, file_desc, i)
+    db.execute('UPDATE image_store SET name=?, owner=?, desc=? WHERE i=?', vars)
     db.commit()
     db.close()
 
-def upload_image(data, file_name, file_desc):
+def upload_image(data, file_name, file_owner, file_desc):
     i = insert_image(data)
-    update_metadata(i, file_name, file_desc)
+    update_metadata(i, file_name, file_owner, file_desc)
     set_latest(i)
 
 ####################
@@ -247,15 +247,15 @@ def create_account(name, password):
     name_in = name.strip()
     password_in = password.strip()
 
-    # Check if username only contains letters and numbers
-    if (not name_in) or (not re.match("^[A-Za-z0-9]*$", name_in)):
+    # Check if username is alphanumeric and not empty
+    if not name_in.isalnum():
         result = {'username' : name_in}
         result['message'] = 'Username can only contain letters and/or numbers'
         user_results['results'].append(result)
         return user_results
 
-    # Check if password only contains letters and numbers
-    if (not password_in) or (not re.match("^[A-Za-z0-9]*$", password_in)):
+    # Check if password is alphanumeric and not empty
+    if not password_in.isalnum():
         result = {'username' : name_in}
         result['message'] = 'Password can only contain letters and/or numbers'
         user_results['results'].append(result)

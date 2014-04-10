@@ -36,7 +36,7 @@ img.download {
   height: 100%;
   margin-left: auto;
   margin-right: auto;
-  width: 760px;
+  width: 800px;
 }
 
 #banner {
@@ -59,7 +59,7 @@ img.download {
 
 #content {
   background: #ffffff url('content.jpg') no-repeat top right;
-  margin-left: 200px;
+  margin-left: 250px;
   margin-right: 0px;
   padding: 0px;
 }
@@ -79,13 +79,13 @@ p, pre {
   height: 90%;
   margin: 0px;
   padding: 0px;
-  width: 200px;
+  width: 250px;
 }
 
 #footer {
   background: url('footer.gif') repeat-x;
   clear: both;
-  height: 35px;
+  height: 50px;
   margin: 0px;
   padding: 0px;
   text-align: right; 
@@ -99,26 +99,6 @@ p, pre {
   padding: 5px 5px 0px 0px;
 }
 
-.verticalmenu ul {
-  list-style: none;
-  margin: 0px;
-  padding: 10px;
-}
-
-.verticalmenu li, a:link, .verticalmenu a:visited, .verticalmenu a:hover {
-  color: #9A1212;
-  display: block;
-  font: bold 1.1em Verdana, Arial, Helvetica, sans-serif;
-  height: 32px;
-  text-align: left;
-  text-decoration: none;
-  width: 150px;
-}
-
-.verticalmenu a:hover {
-  background: url('menuhover.gif') no-repeat;
-  color: #dc4d1b;
-}
 
 table {
   table-layout: fixed;
@@ -134,4 +114,36 @@ td#thumb {
   bgcolor: #F5F5F5;
   height: 60px;
   width: 60px;
+}
+
+.login {
+  color: #006400;
+  display: block;
+  font: bold 1.1em Verdana, Arial, Helvetica, sans-serif;
+  height: 15px;
+  padding: 10px;
+  text-align: left;
+  text-decoration: none;
+  width: 200px;
+}
+
+.verticalmenu ul {
+  list-style: none;
+  margin: 0px;
+  padding: 10px;
+}
+
+.verticalmenu li, a:link, .verticalmenu a:visited, .verticalmenu a:hover {
+  color: #9A1212;
+  display: block;
+  font: bold 1.1em Verdana, Arial, Helvetica, sans-serif;
+  height: 32px;
+  text-align: left;
+  text-decoration: none;
+  width: 200px;
+}
+
+.verticalmenu a:hover {
+  background: url('menuhover.gif') no-repeat;
+  color: #dc4d1b;
 }

@@ -69,12 +69,15 @@ class RootDirectory(Directory):
 
         name = request.form['username']
         password = request.form['password']
-        results = sqlite.login(name, password)
+        cookie, results = sqlite.login(name, password)
 
+        if cookie:
+            request.response.set_cookie('User', name)
         return html.render('login.html', results)
 
     @export(name='logout')
     def logout(self):
+        quixote.get_response().set_cookie('User', "null")
         return quixote.redirect('./')
 
     @export(name='search')

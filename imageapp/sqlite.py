@@ -261,7 +261,7 @@ def login(name, password):
         result = {'username' : name_in}
         result['message'] = 'That username does not exist, please try again'
         user_results['results'].append(result)
-        return user_results
+        return 0, user_results
 
     login_okay = check_login(name_in, password_in)
 
@@ -269,12 +269,12 @@ def login(name, password):
         result = {'username' : name_in}
         result['message'] = 'The login attempt failed, please try again'
         user_results['results'].append(result)
-        return user_results
+        return 0, user_results
 
     result = {'username' : name_in}
     result['message'] = 'You are logged in as %s' % name_in
     user_results['results'].append(result)
-    return user_results
+    return 1, user_results
 
 def users_list():
     user_results = {'users' : 'users'}

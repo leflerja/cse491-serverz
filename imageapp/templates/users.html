@@ -8,15 +8,16 @@
 
   {% for i in results %}
   <tr>
-    <td>
-      <a href=delete_user?u={{ i['username'] }}>{{ i['username'] }}</a>
-    </td>
+    <td valign="top">{{ i['username'] }}</td>
     <td valign="top">{{ i['password'] }}</td>
+    <td>
+      <a href=delete_user?u={{ i['username'] }}>delete</a>
+    </td>
   </tr>
   {% endfor %}
 
 </table>
 
-<p>Select a username to delete the user from the database</p>
+<p>A list of all users and their passwords in the database</p>
 
 {% endblock %}

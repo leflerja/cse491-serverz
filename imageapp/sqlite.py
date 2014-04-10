@@ -53,7 +53,18 @@ def init_load():
     create_account('jason', 'jason')
     create_account('scott', 'scott')
 
-def get_image_gallery():
+def delete_image(form_data):
+    index = int(form_data['i'])
+    
+    # Check to see if this was the latest image
+    done = is_latest(index)
+
+    db = sqlite3.connect(IMAGES_DB)
+    db.execute('DELETE FROM image_store WHERE i=?', (index,))
+    db.commit()
+    db.close()
+
+def get_image_list():
     img_results = {'img' : 'img'}
     img_results['results'] = []
 
@@ -149,6 +160,25 @@ def insert_image(data):
 
     return row[0]
 
+# This is called when deleting an image from the database
+# If it was the latest image, we need to find a new latest image
+def is_latest(index):
+    db = sqlite3.connect(IMAGES_DB)
+    c = db.cursor()
+    c.execute('SELECT i FROM image_store WHERE latest=1')
+    row = c.fetchone()
+
+    # If this is the latest image, set the image with the largest
+    # index to the latest
+    if row[0] == index:
+        c.execute('SELECT i FROM image_store WHERE latest=0 ' +
+                  'ORDER BY i DESC LIMIT 1')
+        row2 = c.fetchone()
+        set_latest(row2[0])
+    db.close()
+
+    return 1
+
 # The "latest" column is a flag that is set to 1 for the latest image
 # selected, and set to 0 for all others
 def set_latest(index):
@@ -174,7 +204,9 @@ def upload_image(data, file_name, file_desc):
     update_metadata(i, file_name, file_desc)
     set_latest(i)
 
-# User Functions
+####################
+#  User Functions  #
+####################
 
 def add_user(name, password):
     db = sqlite3.connect(IMAGES_DB)
@@ -184,6 +216,7 @@ def add_user(name, password):
     db.commit()
     db.close()
 
+# Check if the username is in the database
 def check_for_user(name):
     db = sqlite3.connect(IMAGES_DB)
     c = db.cursor()
@@ -195,6 +228,7 @@ def check_for_user(name):
 
     return row[0]
 
+# Verify the correct username/password combination
 def check_login(name, password):
     db = sqlite3.connect(IMAGES_DB)
     c = db.cursor()
@@ -227,6 +261,7 @@ def create_account(name, password):
         user_results['results'].append(result)
         return user_results
 
+    # Check if the username is already taken
     user_exists = check_for_user(name_in)
 
     if user_exists == 1:
@@ -257,14 +292,17 @@ def login(name, password):
 
     user_exists = check_for_user(name_in)
 
+    # Check if the username exists
     if user_exists == 0:
         result = {'username' : name_in}
         result['message'] = 'That username does not exist, please try again'
         user_results['results'].append(result)
         return 0, user_results
 
+    # Check if the username/password combination is valid
     login_okay = check_login(name_in, password_in)
 
+    # The username/password combination was invalid
     if login_okay == 0:
         result = {'username' : name_in}
         result['message'] = 'The login attempt failed, please try again'
@@ -276,6 +314,7 @@ def login(name, password):
     user_results['results'].append(result)
     return 1, user_results
 
+# Get a list of all users in the database
 def users_list():
     user_results = {'users' : 'users'}
     user_results['results'] = []

@@ -30,6 +30,13 @@ class RootDirectory(Directory):
         response.set_content_type('text/css')
         return html.load_file('touching.css')
 
+    @export(name='delete_image')
+    def delete_image(self):
+        request = quixote.get_request()
+        sqlite.delete_image(request.form)
+        results = sqlite.get_image_list()
+        return html.render('image_list.html', results)
+
     @export(name='delete_user')
     def delete_user(self):
         request = quixote.get_request()
@@ -37,10 +44,10 @@ class RootDirectory(Directory):
         results = sqlite.users_list()
         return html.render('users.html', results)
 
-    @export(name='gallery')
-    def image_gallery(self):
-        results = sqlite.get_image_gallery()
-        return html.render('gallery.html', results)
+    @export(name='image_list')
+    def image_list(self):
+        results = sqlite.get_image_list()
+        return html.render('image_list.html', results)
 
     @export(name='image')
     def image(self):

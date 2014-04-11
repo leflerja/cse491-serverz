@@ -1,3 +1,21 @@
+2014-04-11  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * Project 9: I used the project 15 features added previously to implement
+       this project. I added an "owner" column to the image_store table.
+
+     Upload: The image owners username is stored with the image when it's
+       uploaded. The username is grabbed from the cookie in root.py. If the
+       user is not logged in when attempting to upload, an error message is
+       displayed and the upload does not happen.
+
+     Deletion: The Image List page accessible through the left menu lists all
+       images in the database, with their descriptions and owner's usernames.
+       When a user clicks the "delete" link next to an image, the image is
+       deleted from the database, and the image list page is rerendered. The
+       code first verifies that the user is logged in with the same username
+       as the image owner. If a user attempts to delete an image they do not
+       own, an error message is displayed, and the image is not deleted.
+
 2014-04-10  Jason Lefler <leflerja@arctic.cse.msu.edu>
 
  * Project 15: I added account creation, login, and authentication.
@@ -16,8 +34,6 @@
        account does not change the login status of the user.  All users and
        passwords can be seen (and deleted) by selecting the "Users List" link
        on the left menu.
-
- * Project 9: Track image owners, only allow image owners to delete images.
 
 2014-04-05  Jason Lefler <leflerja@arctic.cse.msu.edu>
 

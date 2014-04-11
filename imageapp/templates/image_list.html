@@ -4,8 +4,20 @@
 
 <h2>Image List:</h2>
 
+{% if message %}
+  {% for i in message %}
+  <p>{{ i['alert'] }}</p>
+  {% endfor %}
+{% endif %}
+
 {% if results %}
+
 <table border=1 cellpadding=1 cellspacing=1>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Owner</th>
+  </tr>
 
   {% for i in results %}
   <tr>
@@ -13,6 +25,7 @@
       <a href=update_latest?i={{ i['index'] }}>{{ i['name'] }}</a>
     </td>
     <td valign="top">{{ i['desc'] }}</td>
+    <td valign="top">{{ i['owner'] }}</td>
     <td>
       <a href=delete_image?i={{ i['index'] }}>delete</a>
     </td>

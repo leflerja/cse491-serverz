@@ -33,8 +33,11 @@ class RootDirectory(Directory):
     @export(name='delete_image')
     def delete_image(self):
         request = quixote.get_request()
-        sqlite.delete_image(request.form)
+        file_owner = request.get_cookie('User')
+        message = sqlite.delete_image(request.form, file_owner)
         results = sqlite.get_image_list()
+        results['message'] = []
+        results['message'].append(dict(alert=message))
         return html.render('image_list.html', results)
 
     @export(name='delete_user')
@@ -96,9 +99,10 @@ class RootDirectory(Directory):
         request = quixote.get_request()
 
         file_name = request.form['name']
+        file_owner = request.form['owner']
         file_desc = request.form['desc']
 
-        results = sqlite.image_search(file_name, file_desc)
+        results = sqlite.image_search(file_name, file_owner, file_desc)
         return html.render('search_results.html', results)
 
     @export(name='thumb')
@@ -126,9 +130,9 @@ class RootDirectory(Directory):
         file_desc = request.form['desc']
         data = the_file.read(int(1e9))
 
-        sqlite.upload_image(data, file_name, file_owner, file_desc)
+        message = sqlite.upload_image(data, file_name, file_owner, file_desc)
+        return html.render('upload.html', message)
 
-        return quixote.redirect('./')
 
     @export(name='users')
     def users(self):

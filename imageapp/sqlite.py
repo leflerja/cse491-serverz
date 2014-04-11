@@ -16,7 +16,7 @@ def create_db():
     if not os.path.exists(IMAGES_DB):
         db = sqlite3.connect(IMAGES_DB)
         db.execute('CREATE TABLE image_store ' +
-                   '(i INTEGER PRIMARY KEY, image BLOB, owner TEXT' +
+                   '(i INTEGER PRIMARY KEY, image BLOB, owner TEXT, ' +
                    'name TEXT, desc TEXT, latest INTEGER DEFAULT 0)');
         db.execute('CREATE TABLE users ' +
                    '(username TEXT PRIMARY KEY, password TEXT)');
@@ -53,16 +53,29 @@ def init_load():
     create_account('jason', 'jason')
     create_account('scott', 'scott')
 
-def delete_image(form_data):
+def delete_image(form_data, file_owner):
     index = int(form_data['i'])
+    message = ''
     
     # Check to see if this was the latest image
     done = is_latest(index)
 
     db = sqlite3.connect(IMAGES_DB)
-    db.execute('DELETE FROM image_store WHERE i=?', (index,))
-    db.commit()
+    c = db.cursor()
+
+    # Check if the user has permission to delete the image
+    c.execute('SELECT owner FROM image_store WHERE i=?', (index,))
+    row = c.fetchone()
+
+    if not row[0] == file_owner:
+        message = 'Only the owner of the image can delete it!' 
+
+    else:
+        db.execute('DELETE FROM image_store WHERE i=?', (index,))
+        db.commit()
+    
     db.close()
+    return message
 
 def get_image_list():
     img_results = {'img' : 'img'}
@@ -71,11 +84,12 @@ def get_image_list():
     db = sqlite3.connect(IMAGES_DB)
     c = db.cursor()
 
-    c.execute('SELECT i, name, desc FROM image_store ORDER BY i ASC')
+    c.execute('SELECT i, name, desc, owner FROM image_store ORDER BY i ASC')
     for row in c:
         result = {'index' : row[0]}
         result['name'] = row[1]
         result['desc'] = row[2]
+        result['owner'] = row[3]
         img_results['results'].append(result)
     db.close()
 
@@ -119,7 +133,7 @@ def get_latest_image():
 
     return image, guess_type(name)[0]
 
-def image_search(name, desc):
+def old_image_search(name, desc):
     img_results = {'img' : 'img'}
     img_results['results'] = []
 
@@ -127,12 +141,12 @@ def image_search(name, desc):
     c = db.cursor()
 
     if desc in ('', ' '):
-        c.execute('SELECT i, name, desc FROM image_store ' +
+        c.execute('SELECT i, name, desc, owner FROM image_store ' +
                   'WHERE name = ? ORDER BY i ASC', (name,))
     else:
         new_desc = '%' + desc + '%'
         vars = (name, new_desc,)
-        c.execute('SELECT i, name, desc FROM image_store ' +
+        c.execute('SELECT i, name, desc, owner FROM image_store ' +
                   'WHERE name = ? ' + 
                   'OR desc LIKE ? ' + 
                   'ORDER BY i ASC', vars)
@@ -141,6 +155,58 @@ def image_search(name, desc):
         result = {'index' : row[0]}
         result['name'] = row[1]
         result['desc'] = row[2]
+        result['owner'] = row[3]
+        img_results['results'].append(result)
+    db.close()
+
+    return img_results
+
+# Search by image name, owner, description, or any combination
+def image_search(name_in, owner_in, desc_in):
+    img_results = {'img' : 'img'}
+    img_results['results'] = []
+    name = name_in.strip()
+    owner = owner_in.strip()
+    desc = desc_in.strip()
+    new_desc = '%' + desc + '%'
+
+    params = ''
+    if name: params += 'n'
+    if owner: params += 'o'
+    if desc: params += 'd'
+
+    # There are 8 options based on the search parameters given
+    options = {'nod' : "name = ? AND owner = ? AND desc LIKE ?",
+               'no'  : "name = ? AND owner = ?",
+               'nd'  : "name = ? AND desc LIKE ?",
+               'n'   : "name = ?",
+               'od'  : "owner = ? AND desc LIKE ?",
+               'o'   : "owner = ?",
+               'd'   : "desc LIKE ?"}
+
+    condition = options.get(params, "name = ?")
+
+    # Ugly way to figure out parameters
+    if params == 'nod': args = (name, owner, new_desc,)
+    elif params == 'no': args = (name, owner,)
+    elif params == 'nd': args = (name, new_desc,)
+    elif params == 'od': args = (owner, new_desc,)
+    elif params == 'o': args = (owner,)
+    elif params == 'd': args = (new_desc,)
+    else: args = (name,)
+
+    query = "SELECT i, name, owner, desc FROM image_store WHERE {s}" \
+            " ORDER BY i ASC".format(s = condition)
+
+    db = sqlite3.connect(IMAGES_DB)
+    c = db.cursor()
+    c.execute(query, args)
+
+    for row in c:
+        result = {'index' : row[0]}
+        result['name'] = row[1]
+        result['desc'] = row[2]
+        result['owner'] = row[3]
         img_results['results'].append(result)
     db.close()
 
@@ -199,10 +265,27 @@ def update_metadata(i, file_name, file_owner, file_desc):
     db.commit()
     db.close()
 
+# Users must be logged in to upload images
 def upload_image(data, file_name, file_owner, file_desc):
-    i = insert_image(data)
-    update_metadata(i, file_name, file_owner, file_desc)
-    set_latest(i)
+    logged_in = check_for_user(file_owner)
+    user_results = {'users' : 'users'}
+    user_results['results'] = []
+
+    if logged_in:
+        i = insert_image(data)
+        update_metadata(i, file_name, file_owner, file_desc)
+        set_latest(i)
+
+        result = {'username' : 'username'}
+        result['message'] = 'The image was uploaded successfully'
+        user_results['results'].append(result)
+        return user_results
+    else:
+        result = {'username' : 'username'}
+        result['message'] = 'You must log in to upload an image'
+        user_results['results'].append(result)
+        return user_results
+        
 
 ####################
 #  User Functions  #

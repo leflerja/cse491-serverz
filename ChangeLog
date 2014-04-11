@@ -1,92 +1,69 @@
-2014-01-07  Titus Brown  <t@Titus-MacBook-Air-2.local>
+2014-04-05  Jason Lefler <leflerja@arctic.cse.msu.edu>
 
- * Initialized repository, created server.py and README.
+ * ChangeLog: I started adding the newest logs to the top
+ * image.py: Was replaced with sqlite.py
+ * galley.html: The formatting and title were fixed, and the indexes were added
+ * touching.css: I added the table elements for galley.html
+ * Project 4: I imported guess_type from mimetypes and added jpeg and tiff
+       images. I made minor changes to sqlite.py and root.py for the needed
+       functionality.The names of the files are used to determine their type,
+       so any files uploaded MUST have a .png or whatever at the end of their
+       name to work (like dice.png).
+ * Project 5: I migrated the thumbnail gallery to imageapp
 
-2014-01-10  Jason Lefler <leflerja@arctic.cse.msu.edu>
+2014-04-04  Jason Lefler <leflerja@arctic.cse.msu.edu>
 
- * server.py: Added the HTTP 1.0 response
+ * Project 16: I added a SQLite database to store the images. The database is
+       created if the .sqlite file doesn't already exist. After being created,
+       it is loaded with the images from /images, and the image_metadata.txt
+       file in /imageapp. The app works as usual, there are no noticable
+       differences on the front-end.
 
-2014-01-18  Jason Lefler <leflerja@arctic.cse.msu.edu>
+2014-04-03  Jason Lefler <leflerja@arctic.cse.msu.edu>
 
- * server.py: Addressed homework 1 review comments
+ * cookieapp.py: I added the cookie app code
+ * server.py: I added the cookie app to the options with "-A cookie"
+ * twill-tests/cookieapp.twill: I added the twill tests from /day23
 
-2014-01-19  Jason Lefler <leflerja@arctic.cse.msu.edu>
+2014-04-01  Jason Lefler <leflerja@arctic.cse.msu.edu>
 
- * server.py: Added homework 2 code
- * test_server.py: Added tests for homework 2
+ * Project 7: I added the ability to search the image metadata. Just use the
+       search link on the sidebar to search the images by name and/or
+       description. If an image is selected after being searched for, it is
+       moved to the end of the images list (making it the latest image).The
+       searches are not case sensitive. A file name search will return all
+       exact matches, while a description search will return all files with
+       the word(s) surrounded by anything. Select the "Image List" link on
+       the left menu for a list of all image names and descriptions in the db.
 
-2014-01-26  Jason Lefler <leflerja@arctic.cse.msu.edu>
+2014-03-30  Jason Lefler <leflerja@arctic.cse.msu.edu>
 
- * server.py: Added homework 3 code
- * test_server.py: Added tests for homework 3
+ * imageapp/search.html: Added this to search image metadata
 
-2014-01-30  Jason Lefler <leflerja@arctic.cse.msu.edu>
+2014-03-29  Jason Lefler <leflerja@arctic.cse.msu.edu>
 
- * test_server.py: Fixed name of one of the test methods
+ * imageapp/__init__.py: I changed it to load the dice.png file from the
+       images folder where all the images are instead of the imageapp folder
+ * Project 6: I added metadata uploading to the imageapp. The name and
+       description of the image are stored in a dictionary with the image.
 
-2014-01-30  Matheus Araujo <araujoma@cse.msu.edu>
+2014-03-25  Jason Lefler <leflerja@arctic.cse.msu.edu>
 
- * Really Good code, could improve with main() and get_submit() tests
+ * imageapp/root.py: It now exports the CSS background images so they will
+       appear on the web site
+ * imageapp/html.py: It opens and reads the background images in the CSS and
+       returns them to root.py
 
-2014-01-31  Jason Lefler <leflerja@arctic.cse.msu.edu>
+2014-03-23  Jason Lefler <leflerja@arctic.cse.msu.edu>
 
- * server.py: Added the error page
- * test_server.py: Added the test for the error page
+ * imageapp/templates: Added the "Touching" css to imageapp
+ * Project 3: I added the Touching CSS to imageapp
 
-2014-02-04  Jason Lefler <leflerja@arctic.cse.msu.edu>
+2014-03-21  Jason Lefler <leflerja@arctic.cse.msu.edu>
 
- * server.py: Added the recv() functionality
- * test_server.py: Altered the tests to work with the templates
-
-2014-02-06  Jason Lefler <leflerja@arctic.cse.msu.edu>
-
- * server.py: Added the multipart post stuff
- * test_server.py: Altered the tests to work with the new stuff
-
-2014-02-09  Jason Lefler <leflerja@arctic.cse.msu.edu>
-
- * server.py: Removed from hw5
- * test_server.py: Removed from hw5
- * ref-server.py: Added for hw5
- * app.py: Started on for hw5
- * test_app.py: Started on for hw5
-
-2014-02-11  Jason Lefler <leflerja@arctic.cse.msu.edu>
-
- * app.py: Added the encoding line for template rendering
- * added the s2.html template for posts
-
-2014-02-12  Jason Lefler <leflerja@arctic.cse.msu.edu>
-
- * app.py: Fixed the post part
-
-2014-02-12  Jason Lefler <leflerja@arctic.cse.msu.edu>
-
- * server.py: Added it back with hw5 changes and socketmodule
- * test_server.py: Added it back with main() test
-
-2014-02-20  Jason Lefler <leflerja@arctic.cse.msu.edu>
-
- * app.py: Added the text file and image functionality
- * file: Added the file folder with some test files
- * images: Added the images folder with some test files
-
-2014-02-21  Jason Lefler <leflerja@arctic.cse.msu.edu>
-
- * server.py: Added the WSGI validation
- * test_app.py: Added tests for the new text file and image stuff
-
-2014-02-28  Jason Lefler <leflerja@arctic.cse.msu.edu>
-
- * imageapp: Added the imageapp directory
- * app.py: Made the files list sorted
- * un-qx-server.py: Fixed it to test cookies
-
-2014-03-15  Jason Lefler <leflerja@arctic.cse.msu.edu>
-
- * ref-server.py: Removed
- * twill-tests: Added all twill tests
- * images: Added 2 more images to test the project
+ * chat: Added the app files
+ * quotes: Added the app files
+ * server.py: Added the code to run the chat and quotes apps
 
 2014-03-16  Jason Lefler <leflerja@arctic.cse.msu.edu>
 
@@ -101,39 +78,89 @@
        images.html, they are in alphabetic order, and will appear on a new page
        in full size if the image is selected.
 
-2014-03-21  Jason Lefler <leflerja@arctic.cse.msu.edu>
+2014-03-15  Jason Lefler <leflerja@arctic.cse.msu.edu>
 
- * chat: Added the app files
- * quotes: Added the app files
- * server.py: Added the code to run the chat and quotes apps
+ * ref-server.py: Removed
+ * twill-tests: Added all twill tests
+ * images: Added 2 more images to test the project
 
-2014-03-23  Jason Lefler <leflerja@arctic.cse.msu.edu>
+2014-02-28  Jason Lefler <leflerja@arctic.cse.msu.edu>
 
- * imageapp/templates: Added the "Touching" css to imageapp
- * Project 3: I added the Touching CSS to imageapp
+ * imageapp: Added the imageapp directory
+ * app.py: Made the files list sorted
+ * un-qx-server.py: Fixed it to test cookies
 
-2014-03-25  Jason Lefler <leflerja@arctic.cse.msu.edu>
+2014-02-21  Jason Lefler <leflerja@arctic.cse.msu.edu>
 
- * imageapp/root.py: It now exports the CSS background images so they will
-       appear on the web site
- * imageapp/html.py: It opens and reads the background images in the CSS and
-       returns them to root.py
+ * server.py: Added the WSGI validation
+ * test_app.py: Added tests for the new text file and image stuff
 
-2014-03-29  Jason Lefler <leflerja@arctic.cse.msu.edu>
+2014-02-20  Jason Lefler <leflerja@arctic.cse.msu.edu>
 
- * imageapp/__init__.py: I changed it to load the dice.png file from the
-       images folder where all the images are instead of the imageapp folder
- * Project 6: I added metadata uploading to the imageapp. The name and
-       description of the image are stored in a dictionary with the image.
+ * app.py: Added the text file and image functionality
+ * file: Added the file folder with some test files
+ * images: Added the images folder with some test files
 
-2014-03-30  Jason Lefler <leflerja@arctic.cse.msu.edu>
+2014-02-12  Jason Lefler <leflerja@arctic.cse.msu.edu>
 
- * imageapp/search.html: Added this to search image metadata
+ * app.py: Fixed the post part
+ * server.py: Added it back with hw5 changes and socketmodule
+ * test_server.py: Added it back with main() test
 
-2014-04-01  Jason Lefler <leflerja@arctic.cse.msu.edu>
+2014-02-11  Jason Lefler <leflerja@arctic.cse.msu.edu>
 
- * Project 7: I added the ability to search the image metadata. Just use the
-       search link on the sidebar to search the images by name and/or
-       description. If an image is selected after being searched for, it is
-       moved to the end of the images list (making it the latest image).
+ * app.py: Added the encoding line for template rendering
+ * added the s2.html template for posts
 
+2014-02-09  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * server.py: Removed from hw5
+ * test_server.py: Removed from hw5
+ * ref-server.py: Added for hw5
+ * app.py: Started on for hw5
+ * test_app.py: Started on for hw5
+
+2014-02-06  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * server.py: Added the multipart post stuff
+ * test_server.py: Altered the tests to work with the new stuff
+
+2014-02-04  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * server.py: Added the recv() functionality
+ * test_server.py: Altered the tests to work with the templates
+
+2014-01-31  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * server.py: Added the error page
+ * test_server.py: Added the test for the error page
+
+2014-01-30  Matheus Araujo <araujoma@cse.msu.edu>
+
+ * Really Good code, could improve with main() and get_submit() tests
+
+2014-01-30  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * test_server.py: Fixed name of one of the test methods
+
+2014-01-26  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * server.py: Added homework 3 code
+ * test_server.py: Added tests for homework 3
+
+2014-01-19  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * server.py: Added homework 2 code
+ * test_server.py: Added tests for homework 2
+
+2014-01-18  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * server.py: Addressed homework 1 review comments
+
+2014-01-10  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * server.py: Added the HTTP 1.0 response
+
+2014-01-07  Titus Brown  <t@Titus-MacBook-Air-2.local>
+
+ * Initialized repository, created server.py and README.

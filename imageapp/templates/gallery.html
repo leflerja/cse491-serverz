@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Image List:</h2>
+
+{% if results %}
+<table border=1 cellpadding=1 cellspacing=1>
+
+  {% for i in results %}
+  <tr>
+    <td id="one">
+      <a href=update_latest?i={{ i['index'] }}>{{ i['index'] }}</a>
+    </td>
+    <td valign="top">{{ i['name'] }}</td>
+    <td valign="top">{{ i['desc'] }}</td>
+  </tr>
+  {% endfor %}
+
+</table>
+{% else %} <p>No image found</p>
+{% endif %}
+
+{% endblock %}

@@ -112,10 +112,26 @@ p, pre {
   height: 32px;
   text-align: left;
   text-decoration: none;
-  width: 140px;
+  width: 150px;
 }
 
 .verticalmenu a:hover {
   background: url('menuhover.gif') no-repeat;
   color: #dc4d1b;
+}
+
+table {
+  table-layout: fixed;
+  width: 500px;
+}
+
+td#one {
+  width: 25px;
+}
+
+td#thumb {
+  align: center;
+  bgcolor: #F5F5F5;
+  height: 60px;
+  width: 60px;
 }

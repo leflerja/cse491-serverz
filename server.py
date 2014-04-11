@@ -12,6 +12,7 @@ from sys import stderr
 import time
 from urlparse import urlparse
 from wsgiref.validate import validator
+from wsgiref.simple_server import make_server
 
 def handle_connection(conn, port):
     request = conn.recv(1)
@@ -74,7 +75,7 @@ def handle_connection(conn, port):
     conn.close()
 
 def get_args():
-    app_list = ['altdemo', 'image', 'myapp', 'quotes', 'chat']
+    app_list = ['altdemo', 'image', 'myapp', 'quotes', 'chat', 'cookie']
     parser = argparse.ArgumentParser()
     parser.add_argument('-A', action="store",
                               dest='arg_app',
@@ -117,7 +118,6 @@ def main(socketmodule=None):
         imageapp.setup()
         p = imageapp.create_publisher()
         wsgi_app = quixote.get_wsgi_app()
-        from wsgiref.simple_server import make_server
         host = socketmodule.getfqdn()
         if port == 0:
             port = random.randint(8000, 9999)
@@ -132,7 +132,6 @@ def main(socketmodule=None):
     elif app == 'altdemo':
         p = create_publisher()
         wsgi_app = quixote.get_wsgi_app()
-        from wsgiref.simple_server import make_server
         host = socketmodule.getfqdn()
         if port == 0:
             port = random.randint(8000, 9999)
@@ -147,6 +146,17 @@ def main(socketmodule=None):
             port = random.randint(8000, 9999)
         os.chdir(app)
         os.system("python2.7 %s-server %d" % (app, port))
+
+    elif app == 'cookie':
+        import cookieapp
+        wsgi_app = cookieapp.wsgi_app
+        host = socketmodule.getfqdn()
+        if port == 0:
+            port = random.randint(8000, 9999)
+        httpd = make_server('', port, wsgi_app)
+        print 'Starting server on', host, port
+        print 'The Web server URL for this would be http://%s:%d/' % (host, port)
+        httpd.serve_forever()
 
 if __name__ == '__main__':
     main()

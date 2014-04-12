@@ -7,7 +7,8 @@
        comment table is a form to add a comment. The user enters a comment and
        clicks the submit button. If they are not logged in, or the comment
        field is empty, an error message is displayed. Otherwise, the comment
-       is inserted in the database and displayed.
+       is inserted in the database and displayed. When an image or user is
+       deleted, all associated comments are also deleted.
 
 2014-04-11  Jason Lefler <leflerja@arctic.cse.msu.edu>
 

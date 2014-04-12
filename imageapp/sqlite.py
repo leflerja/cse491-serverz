@@ -133,34 +133,6 @@ def get_latest_image():
 
     return image, guess_type(name)[0]
 
-def old_image_search(name, desc):
-    img_results = {'img' : 'img'}
-    img_results['results'] = []
-
-    db = sqlite3.connect(IMAGES_DB)
-    c = db.cursor()
-
-    if desc in ('', ' '):
-        c.execute('SELECT i, name, desc, owner FROM image_store ' +
-                  'WHERE name = ? ORDER BY i ASC', (name,))
-    else:
-        new_desc = '%' + desc + '%'
-        vars = (name, new_desc,)
-        c.execute('SELECT i, name, desc, owner FROM image_store ' +
-                  'WHERE name = ? ' + 
-                  'OR desc LIKE ? ' + 
-                  'ORDER BY i ASC', vars)
-
-    for row in c:
-        result = {'index' : row[0]}
-        result['name'] = row[1]
-        result['desc'] = row[2]
-        result['owner'] = row[3]
-        img_results['results'].append(result)
-    db.close()
-
-    return img_results
-
 # Search by image name, owner, description, or any combination
 def image_search(name_in, owner_in, desc_in):
     img_results = {'img' : 'img'}

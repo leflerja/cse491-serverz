@@ -1,5 +1,16 @@
 2014-04-11  Jason Lefler <leflerja@arctic.cse.msu.edu>
 
+ * Project 8: I added the ability to comment on images. I added a "comments"
+       table to the database. It stores the index of the image, the username
+       of the commenter, and the comment. When an image is displayed, all
+       comments associated with it are shown in a table below it. Below the
+       comment table is a form to add a comment. The user enters a comment and
+       clicks the submit button. If they are not logged in, or the comment
+       field is empty, an error message is displayed. Otherwise, the comment
+       is inserted in the database and displayed.
+
+2014-04-11  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
  * Project 9: I used the project 15 features added previously to implement
        this project. I added an "owner" column to the image_store table.
 

@@ -101,19 +101,11 @@ def get_image_thumb(form_data):
     db.text_factory = bytes
     c = db.cursor()
 
-<<<<<<< HEAD
     c.execute('SELECT image FROM image_store WHERE i=?', (img_idx,))
     image = c.fetchone()
     db.close()
 
     return image[0]
-=======
-    c.execute('SELECT image, name FROM image_store WHERE latest=1 LIMIT 1')
-    image, name = c.fetchone()
-    db.close()
-
-    return image, guess_type(name)[0]
->>>>>>> master
 
 def get_indexes():
     img_results = {'img' : 'img'}
@@ -135,17 +127,9 @@ def get_latest_image():
     db.text_factory = bytes
     c = db.cursor()
 
-<<<<<<< HEAD
     c.execute('SELECT image, name FROM image_store WHERE latest=1 LIMIT 1')
     image, name = c.fetchone()
     db.close()
-=======
-    c.execute('SELECT image FROM image_store WHERE i=?', (img_idx,))
-    image = c.fetchone()
-    db.close()
-
-    return image[0]
->>>>>>> master
 
     return image, guess_type(name)[0]
 

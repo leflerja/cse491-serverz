@@ -45,7 +45,8 @@
        images. I made minor changes to sqlite.py and root.py for the needed
        functionality. The names of the files are used to determine their type,
        so any files uploaded MUST have a .png or whatever at the end of their
-       name to work (like dice.png).
+       name to work (like dice.png). Note: I don't think Chrome or Firefox
+       support tiff images, but Safari does.
  * Project 5: I migrated the thumbnail gallery to imageapp
 
 2014-04-04  Jason Lefler <leflerja@arctic.cse.msu.edu>

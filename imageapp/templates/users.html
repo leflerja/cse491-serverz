@@ -8,13 +8,14 @@
   <tr>
     <th>Userame</th>
     <th>Password</th>
+    <th></th>
   </tr>
 
   {% for i in results %}
   <tr>
     <td valign="top">{{ i['username'] }}</td>
     <td valign="top">{{ i['password'] }}</td>
-    <td>
+    <td valign="top">
       <a href=delete_user?u={{ i['username'] }}>delete</a>
     </td>
   </tr>

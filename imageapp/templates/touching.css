@@ -112,6 +112,11 @@ td#thumb {
   width: 60px;
 }
 
+td#thin {
+  valign: top;
+  width: 100px;
+}
+
 .login {
   color: #006400;
   display: block;

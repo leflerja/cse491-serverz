@@ -8,7 +8,21 @@ class RootDirectory(Directory):
 
     @export(name='')
     def index(self):
-        return html.render('index.html')
+        posts = sqlite.get_comments()
+        return html.render('image.html', posts)
+
+    @export(name='add_comment')
+    def add_comment(self):
+        request = quixote.get_request()
+        user = request.get_cookie('User')
+        comment = request.form['comm']
+
+        message = sqlite.check_comment(user, comment)
+        posts = sqlite.get_comments()
+        posts['message'] = []
+        posts['message'].append(dict(alert=message))
+
+        return html.render('image.html', posts)
 
     @export(name='create_user')
     def create_user(self):
@@ -54,7 +68,8 @@ class RootDirectory(Directory):
 
     @export(name='image')
     def image(self):
-        return html.render('image.html')
+        posts = sqlite.get_comments()
+        return html.render('image.html', posts)
 
     @export(name='image_raw')
     def image_raw(self):
@@ -114,7 +129,8 @@ class RootDirectory(Directory):
     def update_latest(self):
         request = quixote.get_request()
         sqlite.update_latest(request.form)
-        return html.render('image.html')
+        posts = sqlite.get_comments()
+        return html.render('image.html', posts)
 
     @export(name='upload')
     def upload(self):
@@ -132,7 +148,6 @@ class RootDirectory(Directory):
 
         message = sqlite.upload_image(data, file_name, file_owner, file_desc)
         return html.render('upload.html', message)
-
 
     @export(name='users')
     def users(self):

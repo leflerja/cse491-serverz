@@ -20,6 +20,8 @@ def create_db():
                    'name TEXT, desc TEXT, latest INTEGER DEFAULT 0)');
         db.execute('CREATE TABLE users ' +
                    '(username TEXT PRIMARY KEY, password TEXT)');
+        db.execute('CREATE TABLE comments ' +
+                   '(i INTEGER, username TEXT, comment TEXT)');
         db.commit()
         db.close()
         init_load()
@@ -70,7 +72,9 @@ def delete_image(form_data, file_owner):
     if not row[0] == file_owner:
         message = 'Only the owner of the image can delete it!' 
 
+    # Delete the image and associated comments
     else:
+        db.execute('DELETE FROM comments WHERE i=?', (index,))
         db.execute('DELETE FROM image_store WHERE i=?', (index,))
         db.commit()
     
@@ -259,9 +263,23 @@ def upload_image(data, file_name, file_owner, file_desc):
         return user_results
         
 
-####################
-#  User Functions  #
-####################
+################################
+#  User and Comment Functions  #
+################################
+
+def add_comment(user, comm):
+    db = sqlite3.connect(IMAGES_DB)
+    c = db.cursor()
+
+    # The image being commented on is always the latest
+    c.execute('SELECT i FROM image_store WHERE latest=1')
+    row = c.fetchone()
+    i = row[0]
+
+    data = (i, user, comm,)
+    db.execute('INSERT INTO comments (i, username, comment) VALUES (?, ?, ?)', (data))
+    db.commit()
+    db.close()
 
 def add_user(name, password):
     db = sqlite3.connect(IMAGES_DB)
@@ -270,6 +288,25 @@ def add_user(name, password):
     db.execute('INSERT INTO users (username, password) VALUES (?, ?)', (data))
     db.commit()
     db.close()
+
+def check_comment(user, comment):
+    message = ''
+    comm = comment.strip()
+
+    # Check if the user is logged in
+    logged_in = check_for_user(user)
+    if not logged_in:
+        message = 'You must be logged in to comment on images'
+        return message
+
+    # Check if the comment is empty
+    if not comm:
+        message = 'The comment field was empty'
+        return message
+
+    # The user must be logged in with a comment to reach here
+    add_comment(user, comm)
+    return message
 
 # Check if the username is in the database
 def check_for_user(name):
@@ -331,13 +368,36 @@ def create_account(name, password):
 
     return user_results
 
+# Delete user and associated comments
 def delete_user(form_data):
     username = form_data['u']
     db = sqlite3.connect(IMAGES_DB)
 
+    db.execute('DELETE FROM comments WHERE username=?', (username,))
     db.execute('DELETE FROM users WHERE username=?', (username,))
     db.commit()
     db.close()
+
+def get_comments():
+    comm_results = {'comm' : 'comm'}
+    comm_results['comments'] = []
+
+    db = sqlite3.connect(IMAGES_DB)
+    c = db.cursor()
+
+    # The image being commented on is always the latest
+    c.execute('SELECT i FROM image_store WHERE latest=1')
+    row = c.fetchone()
+    i = row[0]
+
+    c.execute('SELECT username, comment FROM comments WHERE i=?', (i,))
+    for row in c:
+        res = {'user' : row[0]}
+        res['words'] = row[1]
+        comm_results['comments'].append(res)
+    db.close()
+
+    return comm_results
 
 def login(name, password):
     user_results = {'users' : 'users'}

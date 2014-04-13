@@ -261,15 +261,13 @@ def upload_image(f_data, f_name, f_owner, f_desc):
     user_results['results'] = []
 
     if not f_data:
-        result = {'data' : 'data'}
-        result['message'] = 'The image file was empty, please try again'
-        user_results['results'].append(result)
+        res = {'message' : 'The image file was empty, please try again'}
+        user_results['results'].append(res)
         return user_results
 
     if not f_name:
-        result = {'data' : 'data'}
-        result['message'] = 'The image must have a name, please try again'
-        user_results['results'].append(result)
+        res = {'message' : 'The image must have a file name, please try again'}
+        user_results['results'].append(res)
         return user_results
 
     data = f_data.read(int(1e9))
@@ -280,14 +278,12 @@ def upload_image(f_data, f_name, f_owner, f_desc):
         update_metadata(i, f_name, f_owner, f_desc)
         set_latest(i)
 
-        result = {'username' : 'username'}
-        result['message'] = 'The image was uploaded successfully'
-        user_results['results'].append(result)
+        res = {'message' : 'The image was uploaded successfully'}
+        user_results['results'].append(res)
         return user_results
     else:
-        result = {'username' : 'username'}
-        result['message'] = 'You must log in to upload an image'
-        user_results['results'].append(result)
+        res = {'message' : 'You must log in to upload an image'}
+        user_results['results'].append(res)
         return user_results
  
 
@@ -372,30 +368,26 @@ def create_account(name, password):
 
     # Check if username is alphanumeric and not empty
     if not name_in.isalnum():
-        result = {'username' : name_in}
-        result['message'] = 'Username can only contain letters and/or numbers'
-        user_results['results'].append(result)
+        res = {'message' : 'Username can only contain letters and/or numbers'}
+        user_results['results'].append(res)
         return user_results
 
     # Check if password is alphanumeric and not empty
     if not password_in.isalnum():
-        result = {'username' : name_in}
-        result['message'] = 'Password can only contain letters and/or numbers'
-        user_results['results'].append(result)
+        res = {'message' : 'Password can only contain letters and/or numbers'}
+        user_results['results'].append(res)
         return user_results
 
     # Check if the username is already taken
     user_exists = check_for_user(name_in)
 
     if user_exists == 1:
-        result = {'username' : name_in}
-        result['message'] = 'That username already exists, please try again'
-        user_results['results'].append(result)
+        res = {'message' : 'That username already exists, please try again'}
+        user_results['results'].append(res)
     else:
         add_user(name_in, password_in)
-        result = {'username' : name_in}
-        result['message'] = 'The account was successfully created'
-        user_results['results'].append(result)
+        res = {'message' : 'The account was successfully created'}
+        user_results['results'].append(res)
 
     return user_results
 
@@ -463,9 +455,8 @@ def login(name, password):
 
     # Check if the username exists
     if user_exists == 0:
-        result = {'username' : name_in}
-        result['message'] = 'That username does not exist, please try again'
-        user_results['results'].append(result)
+        res = {'message' : 'That username does not exist, please try again'}
+        user_results['results'].append(res)
         return 0, user_results
 
     # Check if the username/password combination is valid
@@ -473,14 +464,12 @@ def login(name, password):
 
     # The username/password combination was invalid
     if login_okay == 0:
-        result = {'username' : name_in}
-        result['message'] = 'The login attempt failed, please try again'
-        user_results['results'].append(result)
+        res = {'message' : 'The login attempt failed, please try again'}
+        user_results['results'].append(res)
         return 0, user_results
 
-    result = {'username' : name_in}
-    result['message'] = 'You are logged in as %s' % name_in
-    user_results['results'].append(result)
+    res = {'message' : 'You are logged in as %s' % name_in}
+    user_results['results'].append(res)
     return 1, user_results
 
 # Get a list of all users in the database

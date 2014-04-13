@@ -1,5 +1,16 @@
 2014-04-13  Jason Lefler <leflerja@arctic.cse.msu.edu>
 
+ * Projects: I'm done! I did the following projects and 2 blog posts.
+        3 - CSS template
+        4 - Support for JPEG and TIFF images
+        5 - Thumbnail gallery
+        6 - Metadata uploading, storage, and retrieval
+        7 - Meatdata searching
+        8 - Image comments
+        9 - Image tracking via login and cookies
+       15 - Account creation, login, and authentication
+       16 - SQLite database
+
  * thumbnail.html: Fixed display mechanism to show 4 or fewer images per row.
  * blogs: I added the blogs directory to hold the 2 blog posts I did.
  * index.html: I removed this page, it redirected to image.html anyway.

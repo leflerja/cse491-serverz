@@ -1,0 +1,15 @@
+1|scott|This is old school!
+1|jason|Steve Jobs rocked!
+1|scott|You got that right!
+2|jason|I use Chrome a lot
+3|scott|Just some random pic Titus added
+4|jason|Firefox rules!
+4|scott|Totally!!!
+5|jason|I test this app primarily on Safari
+5|scott|Seriously???
+5|jason|Yeah... that's right
+6|jason|Tiff files don't work on Chrome or Firefox
+7|jason|Linux is awesome
+7|scott|You better believe it!
+8|scott|Ubuntu is the future!
+8|jason|Yeah, I just loaded it on my laptop to dual boot with Windows 7

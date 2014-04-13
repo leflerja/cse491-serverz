@@ -2,14 +2,22 @@
 
 {% block content %}
 
-<h2>Search Results:</h2>
+<h2>Image List:</h2>
+
+{% if message %}
+  {% for i in message %}
+  <p>{{ i['alert'] }}</p>
+  {% endfor %}
+{% endif %}
 
 {% if results %}
+
 <table border=1 cellpadding=1 cellspacing=1>
   <tr>
     <th>Name</th>
     <th>Description</th>
     <th>Owner</th>
+    <th></th>
   </tr>
 
   {% for i in results %}
@@ -19,6 +27,9 @@
     </td>
     <td valign="top">{{ i['desc'] }}</td>
     <td valign="top">{{ i['owner'] }}</td>
+    <td valign="top">
+      <a href=delete_image?i={{ i['index'] }}>delete</a>
+    </td>
   </tr>
   {% endfor %}
 

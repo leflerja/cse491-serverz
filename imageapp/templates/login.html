@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if results %}
+  {% for i in results %}
+  <p>{{ i['message'] }}</p>
+  {% endfor %}
+{% endif %}
+
+<h2>Login Page:</h2>
+<form enctype='multipart/form-data' action='login_user' method='POST'>
+<p>Username: <input type='text' name='username' size=25></p>
+<p>Password: <input type='text' name='password' size=25></p>
+<p><input type='submit'></p>
+</form>
+
+<p><a href='create_user'>Create an Account</a></p>
+
+{% endblock %}

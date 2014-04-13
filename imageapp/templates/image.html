@@ -7,4 +7,32 @@
 <img width=40% src='image_raw?special=latest'/>
 </p>
 
+{% if message %}
+  {% for i in message %}
+  <p>{{ i['alert'] }}</p>
+  {% endfor %}
+{% endif %}
+
+{% if comments %}
+<table border=1 cellpadding=1 cellspacing=1>
+
+  {% for i in comments %}
+  <tr>
+    <td id="thin">{{ i['user'] }}</td>
+    <td valign="top">{{ i['words'] }}</td>
+    <td id="thin">
+      <a href=delete_comment?ci={{ i['index'] }}>delete</a>
+    </td>
+  </tr>
+  {% endfor %}
+
+</table>
+{% endif %}
+
+<p>Add a comment:</p>
+<form enctype='multipart/form-data' action='add_comment' method='POST'>
+<p><input type='text' name='comm' size=100></p>
+<p><input type='submit'></p>
+</form>
+
 {% endblock %}

@@ -1,3 +1,73 @@
+2014-04-13  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * Projects: I'm done! I did the following projects and 2 blog posts.
+        3 - CSS template
+        4 - Support for JPEG and TIFF images
+        5 - Thumbnail gallery
+        6 - Metadata uploading, storage, and retrieval
+        7 - Meatdata searching
+        8 - Image comments
+        9 - Image tracking via login and cookies
+       15 - Account creation, login, and authentication
+       16 - SQLite database
+
+ * thumbnail.html: Fixed display mechanism to show 4 or fewer images per row.
+ * blogs: I added the blogs directory to hold the 2 blog posts I did.
+ * index.html: I removed this page, it redirected to image.html anyway.
+ * images: I added the safari.jpg image to the sample data.
+ * comments.txt: I added a comments file with sample data. It is loaded
+       when the database is created.
+ * Project 8: I added the ability for users to delete their comments only.
+
+2014-04-11  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * Project 8: I added the ability to comment on images. I added a "comments"
+       table to the database. It stores the index of the image, the username
+       of the commenter, and the comment. When an image is displayed, all
+       comments associated with it are shown in a table below it. Below the
+       comment table is a form to add a comment. The user enters a comment and
+       clicks the submit button. If they are not logged in, or the comment
+       field is empty, an error message is displayed. Otherwise, the comment
+       is inserted in the database and displayed. When an image or user is
+       deleted, all associated comments are also deleted.
+
+2014-04-11  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * Project 9: I used the project 15 features added previously to implement
+       this project. I added an "owner" column to the image_store table.
+
+     Upload: The image owners username is stored with the image when it's
+       uploaded. The username is grabbed from the cookie in root.py. If the
+       user is not logged in when attempting to upload, an error message is
+       displayed and the upload does not happen.
+
+     Deletion: The Image List page accessible through the left menu lists all
+       images in the database, with their descriptions and owner's usernames.
+       When a user clicks the "delete" link next to an image, the image is
+       deleted from the database, and the image list page is rerendered. The
+       code first verifies that the user is logged in with the same username
+       as the image owner. If a user attempts to delete an image they do not
+       own, an error message is displayed, and the image is not deleted.
+
+2014-04-10  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * Project 15: I added account creation, login, and authentication.
+
+     Login: I added the "users" table to the database to store usernames and
+       passwords.  The login page verifies a correct username/password
+       combination from the database and sets the "User" cookie to the
+       username. The login status is displayed on the top of the left menu. The
+       logout menu link sets the cookie to "null". JavaScripts on the base.html
+       page displays the login status and username if logged in.
+
+     Account Creation: A link from the login page takes you to the account
+       creation page. New account usernames are checked to see if they already
+       exist in the database. Usernames and  passwords must not be empty, and
+       must only contain alphanumeric characters. The successful creation of an
+       account does not change the login status of the user.  All users and
+       passwords can be seen (and deleted) by selecting the "Users List" link
+       on the left menu.
+
 2014-04-05  Jason Lefler <leflerja@arctic.cse.msu.edu>
 
  * ChangeLog: I started adding the newest logs to the top
@@ -8,7 +78,8 @@
        images. I made minor changes to sqlite.py and root.py for the needed
        functionality. The names of the files are used to determine their type,
        so any files uploaded MUST have a .png or whatever at the end of their
-       name to work (like dice.png).
+       name to work (like dice.png). Note: I don't think Chrome or Firefox
+       support tiff images, but Safari does.
  * Project 5: I migrated the thumbnail gallery to imageapp
 
 2014-04-04  Jason Lefler <leflerja@arctic.cse.msu.edu>

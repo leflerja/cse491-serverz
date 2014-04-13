@@ -3,6 +3,32 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html">
     <link rel='stylesheet' type='text/css' href='css'>
+    <script type="text/javascript">
+    <!--
+      function readCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+
+        for(var i = 0; i < ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1, c.length);
+          }
+
+          if (c.indexOf(nameEQ) == 0) {
+            val = c.substring(nameEQ.length+1, c.length-1);
+            if (val == "null") {
+              return null;
+            }
+            else {
+              return val;
+            }
+          }
+        }
+        return null;
+      }
+    //-->
+    </script>
   </head>
   
   <body>
@@ -13,13 +39,28 @@
       <div>
         <div>
           <div id="left">
+            <div class="login">
+              <script type="text/javascript">
+                my_cookie = readCookie('User');
+                if (my_cookie) {
+                  document.write("You are logged in as: ");
+                  document.write(my_cookie);
+                }
+                else {
+                  document.write("You are not logged in");
+                }
+              </script>
+            </div>
             <div class="verticalmenu">
               <ul>
+                <li><a href='login'>Login</a></li>
                 <li><a href='upload'>Upload an Image</a></li>
                 <li><a href='image'>Most Recent Image</a></li>
                 <li><a href='search'>Search Images</a></li>
                 <li><a href='thumb'>Thumbnail Gallery</a></li>
-                <li><a href='gallery'>Image List</a></li>
+                <li><a href='image_list'>Image List</a></li>
+                <li><a href='users'>Users List</a></li>
+                <li><a href='logout'>Logout</a></li>
               </ul>
             </div>
           </div>

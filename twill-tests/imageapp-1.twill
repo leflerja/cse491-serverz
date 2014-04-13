@@ -2,7 +2,7 @@
 # twill-sh -u http://localhost:8000/ twill-tests/imageapp-1.twill
 
 follow upload
-formfile 1 file imageapp/dice.png
+formfile 1 file images/dice.png
 submit
 code 200
 

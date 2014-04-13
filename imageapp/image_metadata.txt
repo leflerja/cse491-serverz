@@ -1,7 +1,8 @@
-apple.jpg|The Apple company logo
-chrome.png|The Google Chrome logo
-dice.png|A picture of dice
-firefox.png|The Mozilla Firefox logo
-tif.TIF|This is a tif file
-tux.png|The Linux logo
-ubuntu.png|The Ubuntu Linux logo
+apple.jpg|scott|The Apple company logo
+chrome.png|scott|The Google Chrome logo
+dice.png|jason|A picture of dice
+firefox.png|jason|The Mozilla Firefox logo
+safari.jpg|jason|The Safari logo
+tif.TIF|scott|This is a tif file
+tux.png|jason|The Linux logo
+ubuntu.png|jason|The Ubuntu Linux logo

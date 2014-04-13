@@ -2,7 +2,14 @@
 
 {% block content %}
 
-<h2>Upload a PNG:</h2>
+<h2>Upload an Image:</h2>
+
+{% if results %}
+  {% for i in results %}
+  <p>{{ i['message'] }}</p>
+  {% endfor %}
+{% endif %}
+
 <form enctype='multipart/form-data' action='upload_receive' method='POST'>
 <p>Filename: <input type='file' name='file'></p>
 <p>Image Name: <input type='text' name='name' size=25></p>

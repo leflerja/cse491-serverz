@@ -1,0 +1,63 @@
+Blog Post Assignment
+Jason Lefler (leflerja)
+Class 4 – January 16, 2014
+
+The Day 4 schedule, located at http://msu-web-dev.readthedocs.org/en/latest/day4.html:
+
+0.	For class, read http://en.wikipedia.org/wiki/Deep_Web. Maybe also check out 
+	http://arxiv.org/pdf/1312.6122v1.pdf.
+1.	Quiz and discussion.
+2.	Code review HOWTO:
+	0.	Check out and run/review; add comments and/or fix.
+	1.	Commit your comments.
+	2.	Push to branch ‘hw1-review’ on your own fork, and submit pull requests to 
+		original repository.
+3.	Do a code review with regard to the following issues.
+	0.	Does it run?
+	1.	Spaces rather than tabs.
+	2.	Spaces after # in comments.
+	3.	Properly spelled variable names.
+4.	hw2 – review and discuss.
+
+One open question is why Titus starts his lists with 0 instead of 1.
+
+The Deep Web
+
+The Deep Web refers to the World Wide Web content that is not part of the Surface Web, 
+which is indexed by conventional search engines. Some brave souls have begun to access 
+the Deep Web as it may contain a significant amount of criminal activity.
+
+Shadow Network Paper
+
+This is an academic paper written by people at the University of Vermont and the MITRE 
+Corporation. The paper discusses the creation of models through Symbolic Regression to 
+better understand the flow of information in a network. I only read the abstract as it 
+was preceded in the schedule with “[m]aybe also check out.” We did not end up discussing 
+the paper.
+
+Quiz
+
+Titus asked if anyone had ideas for a more obnoxious background on the quiz page. It was 
+red with flowers. We had a short discussion about the Deep Web reading and went over the 
+quiz. JavaScript does dynamic content generation, which is why it can add to the Deep 
+Web. Titus whips up fear of Google in the class by describing how they watch us to index 
+their search engine. Titus warns us that Google, Amazon, or some other corporation will 
+develop AI at some point… he clearly wanted us to fear for our future. He then said that 
+the NSA indexes almost everything, to them the Deep Web is very small. Titus is clearly 
+one of those radical professors we’ve all been warned about.
+
+Code Review
+
+We wrote our GitHub ids on index cards. He wants to give us a link to devops.com. He said 
+we should limit our lines to 80 characters as a rule of thumb.
+
+When submitting a pull request, select the person’s id, not Titus’, and select master as 
+the base. He added the following link for general Python code thoughts: 
+http://www.python.org/dev/peps/pep-0008/
+
+hw2
+
+The second homework will be fixing our code. He said that we’d be graded on whether or 
+not we fixed our code, not the errors that were initially there.
+
+He let us leave 5 minutes early, hooray!

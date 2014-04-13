@@ -17,22 +17,23 @@ def create_db():
         db = sqlite3.connect(IMAGES_DB)
         db.execute('CREATE TABLE image_store ' +
                    '(i INTEGER PRIMARY KEY, image BLOB, owner TEXT, ' +
-                   'name TEXT, desc TEXT, latest INTEGER DEFAULT 0)');
+                   'name TEXT, desc TEXT, latest INTEGER DEFAULT 0)')
         db.execute('CREATE TABLE users ' +
-                   '(username TEXT PRIMARY KEY, password TEXT)');
-        db.execute('CREATE TABLE comments ' +
-                   '(i INTEGER, username TEXT, comment TEXT)');
+                   '(username TEXT PRIMARY KEY, password TEXT)')
+        db.execute('CREATE TABLE comments (ci INTEGER PRIMARY KEY, ' +
+                   'i INTEGER, username TEXT, comment TEXT)')
         db.commit()
         db.close()
         init_load()
 
 # Load all images in ../images directory, metadata from
-# ./image_metadata.txt, and my user info
+# ./image_metadata.txt, comments from ./comments.txt, and my user info
 def init_load():
     dirname = os.path.dirname(__file__)
     i_dir = os.path.join(dirname, image_dir)
     i_dir = os.path.abspath(i_dir)
     metadata = dirname + '/' + 'image_metadata.txt'
+    comments = dirname + '/' + 'comments.txt'
 
     # Load all the images
     for file in sorted(os.listdir(i_dir)):
@@ -47,6 +48,7 @@ def init_load():
         n, o, d = line.split('|')
         update_metadata(cnt, n, o, d)
         cnt +=1
+    file.close()
 
     # Set the last image loaded as the latest
     set_latest(cnt - 1)
@@ -54,6 +56,18 @@ def init_load():
     # Add me
     create_account('jason', 'jason')
     create_account('scott', 'scott')
+
+    # Add comments
+    file2 = open(comments, 'r')
+    for line2 in file2:
+        i, u, c = line2.split('|')
+        add_comment(i, u, c)
+    file2.close()
+
+
+###############
+# Image Stuff #
+###############
 
 def delete_image(form_data, file_owner):
     index = int(form_data['i'])
@@ -267,18 +281,12 @@ def upload_image(data, file_name, file_owner, file_desc):
 #  User and Comment Functions  #
 ################################
 
-def add_comment(user, comm):
+def add_comment(i, user, comm):
+    args = (i, user, comm,)
+    query = 'INSERT INTO comments (i, username, comment) VALUES(?, ?, ?)'
+
     db = sqlite3.connect(IMAGES_DB)
-    c = db.cursor()
-
-    # The image being commented on is always the latest
-    c.execute('SELECT i FROM image_store WHERE latest=1')
-    row = c.fetchone()
-    i = row[0]
-
-    data = (i, user, comm,)
-    db.execute('INSERT INTO comments (i, username, comment) ' +
-               'VALUES (?, ?, ?)', (data))
+    db.execute(query, args)
     db.commit()
     db.close()
 
@@ -302,11 +310,19 @@ def check_comment(user, comment):
 
     # Check if the comment is empty
     if not comm:
-        message = 'The comment field was empty'
+        message = 'The comment field is empty'
         return message
 
+    # The image being commented on is always the latest
+    db = sqlite3.connect(IMAGES_DB)
+    c = db.cursor()
+    c.execute('SELECT i FROM image_store WHERE latest=1')
+    row = c.fetchone()
+    i = row[0]
+    db.close()
+
     # The user must be logged in with a comment to reach here
-    add_comment(user, comm)
+    add_comment(i, user, comm)
     return message
 
 # Check if the username is in the database
@@ -369,6 +385,28 @@ def create_account(name, password):
 
     return user_results
 
+def delete_comment(form_data, comm_owner):
+    index = int(form_data['ci'])
+    message = ''
+
+    db = sqlite3.connect(IMAGES_DB)
+    c = db.cursor()
+
+    # Check if the user has permission to delete the comment
+    c.execute('SELECT username FROM comments WHERE ci=?', (index,))
+    row = c.fetchone()
+
+    if not row[0] == comm_owner:
+        message = 'Only the owner of the comment can delete it!'
+
+    # Delete the comment
+    else:
+        db.execute('DELETE FROM comments WHERE ci=?', (index,))
+        db.commit()
+ 
+    db.close()
+    return message
+
 # Delete user and associated comments
 def delete_user(form_data):
     username = form_data['u']
@@ -391,10 +429,11 @@ def get_comments():
     row = c.fetchone()
     i = row[0]
 
-    c.execute('SELECT username, comment FROM comments WHERE i=?', (i,))
+    c.execute('SELECT ci, username, comment FROM comments WHERE i=?', (i,))
     for row in c:
-        res = {'user' : row[0]}
-        res['words'] = row[1]
+        res = {'index' : row[0]}
+        res['user'] = row[1]
+        res['words'] = row[2]
         comm_results['comments'].append(res)
     db.close()
 

@@ -113,7 +113,7 @@ td#thumb {
 }
 
 td#thin {
-  valign: top;
+  vertical-align: top;
   width: 100px;
 }
 

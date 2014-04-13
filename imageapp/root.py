@@ -44,14 +44,28 @@ class RootDirectory(Directory):
         response.set_content_type('text/css')
         return html.load_file('touching.css')
 
+    @export(name='delete_comment')
+    def delete_comment(self):
+        request = quixote.get_request()
+        comm_owner = request.get_cookie('User')
+
+        message = sqlite.delete_comment(request.form, comm_owner)
+        posts = sqlite.get_comments()
+        posts['message'] = []
+        posts['message'].append(dict(alert=message))
+
+        return html.render('image.html', posts)
+
     @export(name='delete_image')
     def delete_image(self):
         request = quixote.get_request()
         file_owner = request.get_cookie('User')
+
         message = sqlite.delete_image(request.form, file_owner)
         results = sqlite.get_image_list()
         results['message'] = []
         results['message'].append(dict(alert=message))
+
         return html.render('image_list.html', results)
 
     @export(name='delete_user')

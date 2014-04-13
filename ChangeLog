@@ -1,3 +1,10 @@
+2014-04-13  Jason Lefler <leflerja@arctic.cse.msu.edu>
+
+ * images: I added the safari.jpg image to the sample data.
+ * comments.txt: I added a comments file with sample data. It is loaded
+       when the database is created.
+ * Project 8: I added the ability for users to delete their comments only.
+
 2014-04-11  Jason Lefler <leflerja@arctic.cse.msu.edu>
 
  * Project 8: I added the ability to comment on images. I added a "comments"

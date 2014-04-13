@@ -12,7 +12,7 @@ image_dir = '../images'
 
 # Create the database if it does not already exist
 # Create the image_store and users tables
-def create_db(): 
+def create_db():
     if not os.path.exists(IMAGES_DB):
         db = sqlite3.connect(IMAGES_DB)
         db.execute('CREATE TABLE image_store ' +
@@ -70,14 +70,14 @@ def delete_image(form_data, file_owner):
     row = c.fetchone()
 
     if not row[0] == file_owner:
-        message = 'Only the owner of the image can delete it!' 
+        message = 'Only the owner of the image can delete it!'
 
     # Delete the image and associated comments
     else:
         db.execute('DELETE FROM comments WHERE i=?', (index,))
         db.execute('DELETE FROM image_store WHERE i=?', (index,))
         db.commit()
-    
+ 
     db.close()
     return message
 
@@ -123,8 +123,8 @@ def get_indexes():
         result = {'index' : row[0]}
         img_results['results'].append(result)
     db.close()
-    
-    return img_results    
+ 
+    return img_results
 
 def get_latest_image():
     db = sqlite3.connect(IMAGES_DB)
@@ -261,7 +261,7 @@ def upload_image(data, file_name, file_owner, file_desc):
         result['message'] = 'You must log in to upload an image'
         user_results['results'].append(result)
         return user_results
-        
+ 
 
 ################################
 #  User and Comment Functions  #
@@ -277,7 +277,8 @@ def add_comment(user, comm):
     i = row[0]
 
     data = (i, user, comm,)
-    db.execute('INSERT INTO comments (i, username, comment) VALUES (?, ?, ?)', (data))
+    db.execute('INSERT INTO comments (i, username, comment) ' +
+               'VALUES (?, ?, ?)', (data))
     db.commit()
     db.close()
 
@@ -445,4 +446,3 @@ def users_list():
     db.close()
 
     return user_results
-

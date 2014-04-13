@@ -154,13 +154,12 @@ class RootDirectory(Directory):
     def upload_receive(self):
         request = quixote.get_request()
 
-        the_file = request.form['file']
-        file_name = request.form['name']
-        file_owner = request.get_cookie('User')
-        file_desc = request.form['desc']
-        data = the_file.read(int(1e9))
+        f_data = request.form['file']
+        f_name = request.form['name']
+        f_owner = request.get_cookie('User')
+        f_desc = request.form['desc']
 
-        message = sqlite.upload_image(data, file_name, file_owner, file_desc)
+        message = sqlite.upload_image(f_data, f_name, f_owner, f_desc)
         return html.render('upload.html', message)
 
     @export(name='users')

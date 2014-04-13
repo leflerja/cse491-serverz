@@ -1,0 +1,92 @@
+Blog Post Assignment
+Jason Lefler (leflerja)
+Class 12 – February 13, 2014
+
+Dr. Richard Enbody of the Department of Computer Science and Engineering was the guest 
+speaker for this class. His research focuses on computer architecture and security, his 
+school web page can be found at: http://www.cse.msu.edu/~enbody/
+
+OWASP (The Open Web Application Security Project). He recommended it and briefly went 
+over the topics it covers. He said it’s a good site for anyone interested in computer 
+security.
+
+He then transitions into the slides by stating that he’s interested in robbing banks. You 
+can’t learn defense without learning offense, so let’s look at some attacks. First, an 
+observation: people rob stuff off the Internet because that’s where the money is.
+
+How to Rob a Bank
+
+Don’t go after the bank. Go after the weakest link. Go after individual machines. Get 
+peoples’ account number and password from their web browser. A browser is how people 
+access the Internet, eventually they’ll use it to log into their bank. He doesn’t want 
+our account number and passwords because we don’t have much money. You don’t go after a 
+bank or big corporation directly because they have large security staves. Small 
+businesses and churches make better targets. Religious sites are the most common 
+for malware due to 2 things: a high level of trust and a low level of computer security 
+knowledge. Small companies are targeted because they can go through million of dollars 
+and have small IT departments. One approach would be to get a job as a janitor of a 
+company, since they have all the keys and have access to all the rooms. Of course they 
+will have seen you, and you have to physically go there. That’s where the Internet comes 
+in.
+
+Social Engineering
+
+Try a social engineering attack. What employee should you go after? One answer: the 
+receptionist, they have an Internet connection and a low level of security knowledge. 
+Send him or her a video with a cute puppy and you’re in. The goal of social engineering 
+is to get people to make one mistake, just one click and you’re in.
+
+Man-in-the-Middle
+
+Now he focuses on user land attacks. This refers to working in the user space, not down 
+at the OS level. One option: the man-in-the-browser attack, which is a subset of the 
+man-in-the-middle (MIM) attack. The goal of a MIM attack is to set up your computer 
+between the bank and the user attempting to log in. How do people defend against this 
+attack? With certificates. The browser automatically checks a bank’s certificate, 
+verifying the bank’s web site. Who manages the certificates? Where do they come from? A 
+company. The government doesn’t handle it because of the lack of trust. Browsers allow 
+users to identify the companies they trust for certificates. Certificates can be spoofed, 
+like the flame spoofing of a Microsoft certificate in the Middle East (which went 
+unnoticed for around a decade). 
+
+Man-in-the-Browser
+
+The man-in-the-browser attack is the most common attack of this kind. Password logons are 
+just encrypted forms. So how do we see the encrypted information without knowing the key? 
+Get it before it’s encrypted from inside the browser. This is a form grabbing attack. 
+There are no defenses against this attack. 
+
+How do you get inside the browser for this? A web-inject. Before the browser page is 
+rendered, add more fields. This happens only to specific pages by manipulating the html. 
+How do you get into the browser and onto the computer? Send a cute puppy video that runs 
+malicious code when watched. Clicking on stuff is dangerous, don’t do it. 
+
+Another possibility is through ads on web sites. An ad is just an iFrame, which runs 
+JavaScript. The JavaScript can silently send the user to a bad page; it loads a page into 
+a window of 1 pixel X 1 pixel. A BEP (browser exploit pack) is waiting on the bad page. 
+The BEP identifies the browser, version, ad-ons, and OS. Then it looks at a table for a 
+customized exploit for that specific setup. It then loads stuff on your computer; you 
+don’t even have to click the ad. It rarely works, thankfully. Anyone can rent BEPs and 
+machines on the Internet, though they are expensive.
+
+Now that you’re on the computer, how do you get on the browser? Hooks, they are used by 
+Microsoft to update your computer while you’re using it. Malware uses the hooks to get 
+into the browsers, specifically the function that runs when you hit enter to post the 
+encrypted form. There are only a couple of functions you can hook, but they are enough. 
+What are our protections? Keep your browser updated is number one. NoScript for Firefox 
+is nice; it doesn’t let JavaScript run. None of this stuff works if JavaScripts cannot be 
+run.
+
+Questions
+
+Someone asked if 2-factor authentication could stop these types of attacks. It makes it 
+considerably more difficult to break security. 2-factor helps the bank figure out you the 
+user is, but it may not stop MIM attacks. Banks started asking questions instead of 
+implementing 2-factor authentication. He recommended using ridiculous answers to these 
+questions, not answers that others could figure out. 2-factor authentication should not 
+be confused with 2-way authentication. 2-way authentication helps the user and the bank 
+authenticate each other. Someone asked if online gaming systems were more secure. The 
+answer is yes because there is no money to steal, so no one cares enough to break in.
+
+Dr. Enbody received a round of applause at the end of class, something Titus has yet to 
+receive.

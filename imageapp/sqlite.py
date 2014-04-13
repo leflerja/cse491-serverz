@@ -256,14 +256,28 @@ def update_metadata(i, file_name, file_owner, file_desc):
     db.close()
 
 # Users must be logged in to upload images
-def upload_image(data, file_name, file_owner, file_desc):
-    logged_in = check_for_user(file_owner)
+def upload_image(f_data, f_name, f_owner, f_desc):
     user_results = {'users' : 'users'}
     user_results['results'] = []
 
+    if not f_data:
+        result = {'data' : 'data'}
+        result['message'] = 'The image file was empty, please try again'
+        user_results['results'].append(result)
+        return user_results
+
+    if not f_name:
+        result = {'data' : 'data'}
+        result['message'] = 'The image must have a name, please try again'
+        user_results['results'].append(result)
+        return user_results
+
+    data = f_data.read(int(1e9))
+    logged_in = check_for_user(f_owner)
+
     if logged_in:
         i = insert_image(data)
-        update_metadata(i, file_name, file_owner, file_desc)
+        update_metadata(i, f_name, f_owner, f_desc)
         set_latest(i)
 
         result = {'username' : 'username'}

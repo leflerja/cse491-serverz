@@ -5,13 +5,13 @@ Class 4 – January 16, 2014
 The Day 4 schedule, located at http://msu-web-dev.readthedocs.org/en/latest/day4.html:
 
 0.	For class, read http://en.wikipedia.org/wiki/Deep_Web. Maybe also check out 
-    http://arxiv.org/pdf/1312.6122v1.pdf.
+	http://arxiv.org/pdf/1312.6122v1.pdf.
 1.	Quiz and discussion.
 2.	Code review HOWTO:
 	0.	Check out and run/review; add comments and/or fix.
 	1.	Commit your comments.
 	2.	Push to branch ‘hw1-review’ on your own fork, and submit pull requests to 
-	    original repository.
+		original repository.
 3.	Do a code review with regard to the following issues.
 	0.	Does it run?
 	1.	Spaces rather than tabs.

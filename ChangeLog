@@ -1,5 +1,6 @@
 2014-04-13  Jason Lefler <leflerja@arctic.cse.msu.edu>
 
+ * thumbnail.html: Fixed display mechanism to show 4 or fewer images per row.
  * blogs: I added the blogs directory to hold the 2 blog posts I did.
  * index.html: I removed this page, it redirected to image.html anyway.
  * images: I added the safari.jpg image to the sample data.
